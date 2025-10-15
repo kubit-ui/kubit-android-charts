@@ -8,11 +8,15 @@ import androidx.compose.ui.unit.dp
 import com.kubit.charts.samples.components.scaffold.AxisAndLineChartSampleHorizontalTop
 import com.kubit.charts.samples.components.scaffold.AxisAndLineChartSampleStandard
 import com.kubit.charts.samples.components.scaffold.AxisAndLineChartSampleVerticalEnd
+import com.kubit.charts.samples.components.scaffold.BTCSampleStandard
 import com.kubit.charts.storybook.ui.storybookcomponents.StorybookPreview
 
 @Composable
 internal fun AxisAndLineChartContent() {
     Column {
+        StorybookPreview(title = "VAxis, HAxis and LineChart", modifier = Modifier.height(400.dp)) {
+            BTCSampleStandard()
+        }
         StorybookPreview(title = "VAxis, HAxis and LineChart", modifier = Modifier.height(600.dp)) {
             AxisAndLineChartSampleStandard()
         }

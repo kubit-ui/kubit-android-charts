@@ -10,7 +10,6 @@ import com.kubit.charts.samples.components.linechart.LineChartWithComposableNode
 import com.kubit.charts.samples.components.linechart.LineChartWithImageNodesSample
 import com.kubit.charts.samples.components.linechart.LineChartWithPointsSample
 import com.kubit.charts.samples.components.linechart.LineChartWithShapeNodesSample
-import com.kubit.charts.samples.components.linechart.LineChartWithoutColorSample
 import com.kubit.charts.samples.components.linechart.LineChartWithoutPointsSample
 import com.kubit.charts.storybook.ui.storybookcomponents.StorybookPreview
 
@@ -30,9 +29,6 @@ internal fun LineChartContent() {
     }
     StorybookPreview(title = "Single Line Without Points") {
         LineChartWithoutPointsSample()
-    }
-    StorybookPreview(title = "Single Line Without Color") {
-        LineChartWithoutColorSample()
     }
     StorybookPreview(title = "Single Line Dotted") {
         LineChartDottedSingleSample()

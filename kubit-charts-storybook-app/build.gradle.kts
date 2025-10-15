@@ -23,7 +23,6 @@ dependencies {
 
     implementation(platform(libs.androidx.compose.composeBom))
     implementation(libs.androidx.compose.foundation)
-    implementation(libs.androidx.compose.material)
     implementation(libs.androidx.compose.material3)
 
     implementation(libs.androidx.navigation.compose)

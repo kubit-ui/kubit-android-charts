@@ -44,7 +44,6 @@ androidx-compose-composeBom = { group = "androidx.compose", name = "compose-bom"
 
 # Compose UI
 androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation", version = "" }
-androidx-compose-material = { group = "androidx.compose.material", name = "material", version = "" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version = "" }
 androidx-compose-uiToolingPreview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version = "" }
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version = "" }
