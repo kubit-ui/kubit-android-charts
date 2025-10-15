@@ -28,15 +28,27 @@ class DeployAndroidPlugin : Plugin<Project> {
         with(target) {
             // Aplicar el plugin de maven-publish
             pluginManager.apply("maven-publish")
+            // Aplicar el plugin de signing para firmar artefactos
+            pluginManager.apply("signing")
 
             afterEvaluate {
+                // Cargar propiedades desde local.properties
+                val localProperties = Properties()
+                val localPropertiesFile = File("${rootProject.projectDir}/local.properties")
+                if (localPropertiesFile.exists()) {
+                    localPropertiesFile.inputStream().use { localProperties.load(it) }
+                }
+
                 extensions.configure<PublishingExtension> {
                     val repositoryUrl =
-                        if (project.hasProperty("repositoryUrl")) project.properties["repositoryUrl"] else DefaultRepositoryUrl
+                        if (project.hasProperty("repositoryUrl")) project.properties["repositoryUrl"]
+                        else localProperties["repositoryUrl"] ?: DefaultRepositoryUrl
                     val repositoryUser =
-                        if (project.hasProperty("repositoryUser")) project.properties["repositoryUser"] else ""
+                        if (project.hasProperty("repositoryUser")) project.properties["repositoryUser"]
+                        else localProperties["repositoryUser"] ?: ""
                     val repositoryPass =
-                        if (project.hasProperty("repositoryPass")) project.properties["repositoryPass"] else ""
+                        if (project.hasProperty("repositoryPass")) project.properties["repositoryPass"]
+                        else localProperties["repositoryPass"] ?: ""
                     val publishVersion =
                         if (project.hasProperty("publishVersion")) project.properties["publishVersion"] else DefaultPublishVersion
 
@@ -74,6 +86,23 @@ class DeployAndroidPlugin : Plugin<Project> {
                             publishVersion.toString(),
                             target
                         )
+                    }
+                }
+
+                // Configurar signing para firmar los artefactos
+                extensions.configure<org.gradle.plugins.signing.SigningExtension> {
+                    val signingKeyId = localProperties["signing.keyId"] ?: ""
+                    val signingPassword = localProperties["signing.password"] ?: ""
+                    val signingSecretKeyRingFile = localProperties["signing.secretKeyRingFile"] ?: ""
+
+                    if (signingKeyId.toString().isNotEmpty() && File(signingSecretKeyRingFile.toString()).exists()) {
+                        useInMemoryPgpKeys(
+                            signingKeyId.toString(),
+                            File(signingSecretKeyRingFile.toString()).readText(),
+                            signingPassword.toString()
+                        )
+                        val publishingExtension = extensions.getByType(PublishingExtension::class.java)
+                        sign(publishingExtension.publications)
                     }
                 }
             }
@@ -143,9 +172,9 @@ private fun String.capitalize() = this.replaceFirstChar {
 private const val Release = "release"
 
 // Repository configuration
-private const val DefaultRepositoryUrl = "https://repository.example.com/repository/android/"
 private const val DefaultPublishVersion = "0.0.0-TEST"
 private const val DefaultGroupId = "com.kubit-lab"
+private const val DefaultRepositoryUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
 
 // POM configuration
 private const val ProjectDescription =
