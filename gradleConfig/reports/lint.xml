@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="HardcodedText" severity="error" />
+    <issue id="UnusedAttribute" severity="error" />
+    <issue id="ContentDescription" severity="error" />
+    <issue id="ParcelCreator" severity="warning" />
+    <issue id="StringFormatInvalid" severity="warning" />
+    <issue id="MissingTranslation" severity="warning" />
+    <issue id="ExtraTranslation" severity="warning" />
+</lint>
