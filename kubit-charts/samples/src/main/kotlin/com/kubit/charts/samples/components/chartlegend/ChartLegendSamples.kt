@@ -90,7 +90,7 @@ fun HorizontalLeftChartLegendAdaptToChartSample() {
             value = "1.200.000.000"
         ),
         colorConfig = ChartLegendColorConfig(
-            color = Color.Blue
+            color = Color.Red
         ),
         spacingConfig = ChartLegendSpacingConfig()
     )
@@ -148,7 +148,7 @@ fun VerticalChartLegendNoValueSample() {
     )
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun MultipleChartLegendSample() {
     Column {
@@ -160,7 +160,8 @@ fun MultipleChartLegendSample() {
                 alignment = ChartLegendTitleAlignment.Start
             ),
             valueConfig = ChartLegendValueConfig(
-                value = "1.200.000.000"
+                value = "1.200.000.000",
+                fontColor = Color.Black
             ),
             colorConfig = ChartLegendColorConfig(
                 color = Color.Blue

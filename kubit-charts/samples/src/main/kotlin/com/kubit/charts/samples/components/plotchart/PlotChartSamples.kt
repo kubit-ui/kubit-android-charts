@@ -98,20 +98,25 @@ fun PlotChartSample() {
     )
 }
 
-@Preview
+@Preview(widthDp = 400, heightDp = 300)
 @Composable
 @Suppress("LongMethod", "MagicNumber")
 fun PlotChartWithBackgroundSample() {
+
+    val density = LocalResources.current.displayMetrics.run {
+        Density(density)
+    }
+
+    val width = with(density) { 400.dp.toPx() }
+    val height = with(density) { 200.dp.toPx() }
 
     val backgroundData =
         PlotChartBackgroundData(
             widthPoints = Pair(0f, 8f),
             heightPoints = Pair(0f, 7f),
             backgroundImageBitmap = painterResource(R.drawable.world).toImageBitmap(
-                size = Size(2000f, 857f),
-                density = LocalResources.current.displayMetrics.run {
-                    Density(density)
-                },
+                size = Size(width, height),
+                density = density,
                 layoutDirection = LayoutDirection.Ltr
             )
 

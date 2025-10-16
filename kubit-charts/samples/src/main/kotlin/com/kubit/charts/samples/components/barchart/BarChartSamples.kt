@@ -13,12 +13,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.kubit.charts.components.axis.AxisLabelStyleDefaults
 import com.kubit.charts.components.axis.HorizontalAxisChart
 import com.kubit.charts.components.axis.HorizontalAxisType
 import com.kubit.charts.components.axis.VerticalAxisChart
 import com.kubit.charts.components.axis.VerticalAxisType
 import com.kubit.charts.components.axis.model.AxisBuilder
 import com.kubit.charts.components.axis.model.AxisPadding
+import com.kubit.charts.components.axis.model.AxisStepStyle
 import com.kubit.charts.components.chart.barchart.BarChart
 import com.kubit.charts.components.chart.barchart.model.BarChartAlignment
 import com.kubit.charts.components.chart.barchart.model.BarChartAppearance
@@ -29,9 +31,11 @@ import com.kubit.charts.components.chart.barchart.model.BarChartSegmentData
 import com.kubit.charts.components.chart.barchart.model.BarChartType
 import com.kubit.charts.components.chart.linechart.LineChart
 import com.kubit.charts.components.chart.linechart.model.IntersectionPoint
-import com.kubit.charts.components.chart.linechart.model.LineBuilder
+import com.kubit.charts.components.chart.linechart.model.LineStyle
 import com.kubit.charts.components.chart.linechart.model.SelectionHighlightPoint
 import com.kubit.charts.components.chart.linechart.model.SelectionHighlightPopUp
+import com.kubit.charts.components.chart.linechart.model.ShadowUnderLine
+import com.kubit.charts.components.chart.linechart.model.lineBuilder
 import com.kubit.charts.components.scaffold.ChartScaffold
 import com.kubit.charts.samples.components.utils.ChartsSampleColors
 import kotlinx.collections.immutable.persistentListOf
@@ -829,7 +833,7 @@ fun BarChartWithAxis() {
 @Suppress("LongMethod", "MagicNumber")
 fun BarChartWithLineChartInAxis() {
     ChartScaffold(
-        modifier = Modifier.background(Color.White),
+        modifier = Modifier.background(Color.DarkGray),
         isPinchZoomEnabled = true,
         xAxisData = Steps,
         yAxisData = Steps,
@@ -838,7 +842,7 @@ fun BarChartWithLineChartInAxis() {
         axisPadding = AxisPadding(start = LabelSize, bottom = LabelSize),
         horizontalAxis = { horizontalScroll, zoom, padding ->
             HorizontalAxisChart(
-                data = Steps,
+                data = HorizontalSteps,
                 type = HorizontalAxisType.Bottom,
                 fixedUnitSize = FixedUnitSize,
                 labelHeight = LabelSize,
@@ -869,9 +873,9 @@ fun BarChartWithLineChartInAxis() {
                             segments = listOf(
                                 BarChartSegmentData(
                                     minValue = -1.0,
-                                    maxValue = 1.0,
+                                    maxValue = 2.0,
                                     label = "Test",
-                                    color = ChartsSampleColors.colorRed50,
+                                    color = ChartsSampleColors.colorBtcGreen.copy(alpha = 0.5f),
                                     contentDescription = "Test Bar Red"
                                 ),
                             ),
@@ -887,7 +891,7 @@ fun BarChartWithLineChartInAxis() {
                                     minValue = -1.0,
                                     maxValue = 3.0,
                                     label = "Test",
-                                    color = ChartsSampleColors.colorRed50,
+                                    color = ChartsSampleColors.colorBtcGreen.copy(alpha = 0.5f),
                                     contentDescription = "Test Bar Red"
                                 ),
                             ),
@@ -901,9 +905,9 @@ fun BarChartWithLineChartInAxis() {
                             segments = listOf(
                                 BarChartSegmentData(
                                     minValue = -1.0,
-                                    maxValue = 4.0,
+                                    maxValue = 3.0,
                                     label = "Test",
-                                    color = ChartsSampleColors.colorRed50,
+                                    color = ChartsSampleColors.colorBtcGreen.copy(alpha = 0.5f),
                                     contentDescription = "Test Bar Red"
                                 ),
                             ),
@@ -940,22 +944,34 @@ fun BarChartWithLineChartInAxis() {
                         .fillMaxHeight()
                         .background(Color.Transparent),
                     lines = listOf(
-                        LineBuilder().addPoints(
-                            listOf(
-                                Offset(-1f, -1f),
-                                Offset(0f, 1f),
-                                Offset(2f, 3f),
-                                Offset(4f, 4f),
-                                Offset(8f, 8f),
+                        lineBuilder {
+                            addPoints(
+                                listOf(
+                                    Offset(-1f, -1f),
+                                    Offset(0f, 1f),
+                                    Offset(2f, 3f),
+                                    Offset(4f, 4f),
+                                    Offset(8f, 8f),
+                                )
+                            ) { IntersectionPoint(color = ChartsSampleColors.colorBtcOrange) }
+                                setSelectionHighlightPoint(
+                                    SelectionHighlightPoint()
+                                )
+                                setSelectionHighlightPopUp(
+                                    SelectionHighlightPopUp()
+                                )
+                            setLineStyle(
+                                LineStyle(
+                                    color = ChartsSampleColors.colorBtcOrange,
+                                    width = 4f
+                                )
                             )
-                        ) { IntersectionPoint() }
-                            .setSelectionHighlightPoint(
-                                SelectionHighlightPoint()
+                            setShadowUnderLine(
+                                ShadowUnderLine(
+                                    color = ChartsSampleColors.colorBtcOrange.copy(alpha = 0.3f),
+                                )
                             )
-                            .setSelectionHighlightPopUp(
-                                SelectionHighlightPopUp()
-                            )
-                            .build()
+                        }
                     ).toImmutableList(),
                     backgroundColor = Color.Transparent,
                     xAxisStepSize = FixedUnitSize,
@@ -1096,6 +1112,30 @@ private val LabelSize = 20.dp
 private val BarPadding = 10.dp
 
 private val Steps = AxisBuilder()
+    .setDefaultStepStyle(
+        AxisStepStyle.solid(
+            strokeColor = Color.LightGray,
+            strokeWidth = 1.dp,
+        )
+    )
+    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = Color.LightGray))
+    .addNode(-1f, "-1")
+    .addNode(0f, "0")
+    .addNode(1f, "1")
+    .addNode(2f, "2")
+    .addNode(3f, "3")
+    .addNode(4f, "4")
+    .addNode(5f, "5")
+    .addNode(6f, "6")
+    .addNode(7f, "7")
+    .addNode(8f, "8")
+    .addNode(9f, "9")
+    .addNode(10f, "10")
+       .build()
+
+private val HorizontalSteps = AxisBuilder()
+    .setDefaultStepStyle(null)
+    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = Color.LightGray))
     .addNode(-1f, "-1")
     .addNode(0f, "0")
     .addNode(1f, "1")
