@@ -1,7 +1,8 @@
 # Kubit Charts
 
 [![Visit the website at kubit-lab.com/](https://img.shields.io/badge/visit-website-red.svg?logo=firefox)](https://kubit-lab.com/)
-![Maven Central Version](https://img.shields.io/maven-central/v/com.kubit-lab/charts?color=df2b51)
+[![Maven Central Version](https://img.shields.io/maven-central/v/com.kubit-lab/charts?color=df2b51)](https://central.sonatype.com/artifact/com.kubit-lab/charts)
+
 
 Kubit Charts is a library that provides a set of customizable and easy-to-use charts for Android applications. 
 It is built using Jetpack Compose and currently supports:
