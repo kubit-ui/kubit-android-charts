@@ -1,26 +1,22 @@
 package gradleconfig.components
 
 import com.android.build.api.dsl.ApplicationExtension
-import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getByType
-import java.io.File
-import java.util.Properties
 
 /**
  * Basic configuration for the app module
  */
 class ComponentsBaseApplicationAndroidPlugin : Plugin<Project> {
-    override fun apply(target: Project){
+    override fun apply(target: Project) {
         with(target) {
 
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
-            with(pluginManager){
+            with(pluginManager) {
                 //Plugins for libraries
                 apply(libs.findPlugin(CatalogConstants.androidApp).get().get().pluginId)
 

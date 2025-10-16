@@ -28,6 +28,9 @@ composeRules = "0.4.27"
 # Documentation
 dokka = "2.0.0"
 
+# Publishing
+vanniktech-maven-publish = "0.34.0"
+
 # Build
 jvmTarget = "17"
 
@@ -74,3 +77,6 @@ detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 
 # Documentation
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+
+# Publishing
+vanniktech-maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "vanniktech-maven-publish" }

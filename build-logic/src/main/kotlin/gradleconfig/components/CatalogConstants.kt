@@ -12,6 +12,7 @@ object CatalogConstants {
     const val androidApp = "androidApplication"
     const val jetBrainsKotlinAndroid = "kotlin"
     const val detekt = "detekt"
+    const val vanniktech = "vanniktech-maven-publish"
 
     //Versions
     const val androidCompileSdk = "androidCompileSdk"

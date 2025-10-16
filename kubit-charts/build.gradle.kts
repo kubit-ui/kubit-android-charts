@@ -1,7 +1,5 @@
 plugins {
     id("gradleConfig.android.library.components.base")
-    id("maven-publish")
-    id("gradleConfig.deploy")
 }
 
 android {
@@ -14,6 +12,56 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+    }
+}
+
+mavenPublishing {
+    publishToMavenCentral()
+    signAllPublications()
+
+    coordinates(
+        groupId = "com.kubit-lab",
+        artifactId = "charts",
+        version = "0.1.0-alpha1"
+    )
+
+    pom {
+        name.set("Kubit Android Charts")
+        description.set("A modern and comprehensive charting library for Jetpack Compose - Create beautiful, interactive and fully accessible charts in your Android applications")
+        inceptionYear.set("2025")
+        url.set("https://github.com/kubit-ui/kubit-android-charts")
+
+        licenses {
+            license {
+                name.set("The Apache License, Version 2.0")
+                url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                distribution.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+            }
+        }
+
+        developers {
+            developer {
+                id.set("kubit-team")
+                name.set("Kubit Development Team")
+                email.set("kubit.lab.apk@gmail.com")
+            }
+        }
+
+        organization {
+            name.set("Kubit")
+            url.set("https://kubit-lab.com")
+        }
+
+        scm {
+            url.set("https://github.com/kubit-ui/kubit-android-charts/tree/main")
+            connection.set("scm:git:git://github.com/kubit-ui/kubit-android-charts.git")
+            developerConnection.set("scm:git:ssh://github.com:kubit-ui/kubit-android-charts.git")
+        }
+
+        issueManagement {
+            system.set("GitHub")
+            url.set("https://github.com/kubit-ui/kubit-android-charts/issues")
         }
     }
 }

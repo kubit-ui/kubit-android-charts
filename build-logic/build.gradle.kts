@@ -25,10 +25,10 @@ gradlePlugin {
             implementationClass = "gradleconfig.components.ComponentsBaseApplicationAndroidPlugin"
         }
 
-        //Maven
-        register("componentsMavenPlugin") {
-            id = "gradleConfig.deploy"
-            implementationClass = "gradleconfig.deploy.DeployAndroidPlugin"
+        //Maven central deployment config
+        register("mavenCentralConfigPlugin") {
+            id = "gradleConfig.mavenCentralConfig"
+            implementationClass = "gradleconfig.deploy.MavenCentralConfigPlugin"
         }
 
         //Git hooks
