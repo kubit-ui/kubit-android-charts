@@ -29,37 +29,12 @@ For more information, examples and detailed information about different type of 
 
 Add these dependencies to your project
 
-If you are using Gradle (KTS):
 ```
 //Library
 implementation("com.kubit-lab:charts:0.1.0-alpha1")
 
 //Samples
 implementation("com.kubit-lab:charts-samples:0.1.0-alpha1")
-```
-
-Inf you are using Gradle (Groovy):
-```
-//Library
-implementation 'com.kubit-lab:charts:0.1.0-alpha1'
-
-//Samples
-implementation 'com.kubit-lab:charts-samples:0.1.0-alpha1'
-```
-
-Or, if you are using Maven:
-```
-<dependency>
-    <groupId>com.kubit-lab</groupId>
-    <artifactId>charts</artifactId>
-    <version>0.1.0-alpha1</version>
-</dependency>
-
-<dependency>
-    <groupId>com.kubit-lab</groupId>
-    <artifactId>charts-samples</artifactId>
-    <version>0.1.0-alpha1</version>
-</dependency>
 ```
 
 ## Storybook
@@ -71,40 +46,38 @@ Check the storybook app to see the different charts on an emulator or a real dev
 
 ### Chart scaffold
 
-![ChartScaffold sample](assets/scaffold/scaffold_1.png)
-![ChartScaffold sample](assets/scaffold/scaffold_2.png)
+<img src="assets/scaffold/scaffold_1.png" width="30%" height="30%" alt="ChartScaffold sample">
+<img src="assets/scaffold/scaffold_2.png" width="30%" height="30%" alt="ChartScaffold sample">
 
 ### Axes
-![Multiple axes](assets/axis/axis_multiple.png)
-![Horizontal axis](assets/axis/axis_horizontal.png)
-![Horizontal axis](assets/axis/axis_vertical.png)
-![Horizontal axis](assets/axis/axis_shade.png)
+<img src="assets/axis/axis_multiple.png" width="30%" height="30%" alt="Multiple axes">
+<img src="assets/axis/axis_horizontal.png" width="30%" height="30%" alt="Horizontal axis">
+<img src="assets/axis/axis_vertical.png" width="30%" height="30%" alt="Horizontal axis">
+<img src="assets/axis/axis_shade.png" width="30%" height="30%" alt="Horizontal axis">
 
 ### Line Chart
-![LineChart sample](assets/linechart/linechart_simple.png)
-![LineChart sample](assets/linechart/linechart_shadow.png)
-![LineChart sample](assets/linechart/linechart_dotted_shadow.png)
-![LineChart sample](assets/linechart/linechart_multiline.png)
-![LineChart sample](assets/linechart/linechart_multiline_shadow.png)
+<img src="assets/linechart/linechart_simple.png" width="30%" height="30%" alt="LineChart sample">
+<img src="assets/linechart/linechart_shadow.png" width="30%" height="30%" alt="LineChart sample">
+<img src="assets/linechart/linechart_dotted_shadow.png" width="30%" height="30%" alt="LineChart sample">
+<img src="assets/linechart/linechart_multiline.png" width="30%" height="30%" alt="LineChart sample">
+<img src="assets/linechart/linechart_multiline_shadow.png" width="30%" height="30%" alt="LineChart sample">
 
 ### Pie Chart
-
-![PieChart sample](assets/piechart/piechart_basic.png)
-![PieChart sample](assets/piechart/piechart_labels.png)
-![PieChart sample](assets/piechart/piechart_labels_rotation.png)
-![PieChart sample](assets/piechart/piechart_radius_border.png)
-![PieChart sample](assets/piechart/piechart_semi_label_border.png)
+<img src="assets/piechart/piechart_basic.png" width="30%" height="30%" alt="PieChart sample">
+<img src="assets/piechart/piechart_labels.png" width="30%" height="30%" alt="PieChart sample">
+<img src="assets/piechart/piechart_labels_rotation.png" width="30%" height="30%" alt="PieChart sample">
+<img src="assets/piechart/piechart_radius_border.png" width="30%" height="30%" alt="PieChart sample">
+<img src="assets/piechart/piechart_semi_label_border.png" width="30%" height="30%" alt="PieChart sample">
 
 ### Bar Chart
-![BarChart sample](assets/barchart/barchart_single_horizontal.png)
-![BarChart sample](assets/barchart/barchart_stacked_horizontal.png)
-![BarChart sample](assets/barchart/barchart_grouped_horizontal.png)
-![BarChart sample](assets/barchart/barchart_multiple.png)
-![BarChart sample](assets/barchart/barchart_linechart.png)
+<img src="assets/barchart/barchart_single_horizontal.png" width="30%" height="30%" alt="BarChart sample">
+<img src="assets/barchart/barchart_stacked_horizontal.png" width="30%" height="30%" alt="BarChart sample">
+<img src="assets/barchart/barchart_grouped_horizontal.png" width="30%" height="30%" alt="BarChart sample">
+<img src="assets/barchart/barchart_multiple.png" width="30%" height="30%" alt="BarChart sample">
+<img src="assets/barchart/barchart_linechart.png" width="30%" height="30%" alt="BarChart sample">
 
 ### Plot Chart
-![PlotChart sample](assets/plotchart/plotchart_world.png)
+<img src="assets/plotchart/plotchart_world.png" width="30%" height="30%" alt="PlotChart sample">
 
 ### Zoom Area Chart
-![Zoom area chart sample](assets/zoom/zoomarea_basic.png)
-
+<img src="assets/zoom/zoomarea_basic.png" width="30%" height="30%" alt="Zoom area chart sample">
