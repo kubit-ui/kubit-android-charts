@@ -31,10 +31,10 @@ Add these dependencies to your project
 
 ```
 //Library
-implementation("com.kubit-lab:charts:0.1.0-alpha1")
+implementation("com.kubit-lab:charts:$lastVersion")
 
 //Samples
-implementation("com.kubit-lab:charts-samples:0.1.0-alpha1")
+implementation("com.kubit-lab:charts-samples:$lastVersion")
 ```
 
 ## Storybook
