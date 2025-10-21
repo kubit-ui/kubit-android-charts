@@ -24,7 +24,8 @@ mavenPublishing {
     coordinates(
         groupId = "com.kubit-lab",
         artifactId = "charts-samples",
-        version = "0.1.0-alpha1"
+        version = project.findProperty("version") as? String
+            ?: error("No se ha definido el parámetro 'version'. Usa -Pversion=...")
     )
 
     pom {
