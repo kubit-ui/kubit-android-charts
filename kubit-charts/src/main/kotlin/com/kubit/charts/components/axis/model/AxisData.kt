@@ -19,7 +19,7 @@ data class AxisData(
 ) {
     val range by lazy {
         @Suppress("SpacingAroundRangeOperator", "SpacingAroundCurly")
-        axisSteps.minOf { it.axisValue }..axisSteps.maxOf { it.axisValue }
+        axisSteps.minOf { it.axisValue } ..axisSteps.maxOf { it.axisValue }
     }
 
     val rangeSize by lazy {
