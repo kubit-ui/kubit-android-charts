@@ -29,4 +29,6 @@ dependencies {
     implementation(libs.androidx.appcompat)
 
     implementation(projects.kubitCharts.samples)
+    implementation(projects.kubitCharts)
+
 }
