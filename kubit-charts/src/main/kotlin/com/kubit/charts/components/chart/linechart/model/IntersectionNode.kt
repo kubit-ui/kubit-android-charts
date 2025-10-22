@@ -198,14 +198,16 @@ class IntersectionShape(
  *
  * @param size The desired size of the painter
  * @param painter The painter to be drawn
+ * @param offset The offset to be applied to the painter
  */
 class IntersectionPainter(
     val size: Size,
-    val painter: Painter
+    val painter: Painter,
+    val offset: Offset? = null,
 ) : IntersectionNode(draw = { center ->
     val pivot = Offset(
-        center.x - size.center.x,
-        center.y - size.center.y
+        center.x - size.center.x - (offset?.x ?: 0f),
+        center.y - size.center.y - (offset?.y ?: 0f)
     )
 
     with(painter) {

@@ -9,11 +9,20 @@ import com.kubit.charts.samples.components.scaffold.AxisAndLineChartSampleHorizo
 import com.kubit.charts.samples.components.scaffold.AxisAndLineChartSampleStandard
 import com.kubit.charts.samples.components.scaffold.AxisAndLineChartSampleVerticalEnd
 import com.kubit.charts.samples.components.scaffold.BTCSampleStandard
+import com.kubit.charts.samples.components.scaffold.LineChartMultiLineMultipleNodesSample
+import com.kubit.charts.samples.components.scaffold.weather.WeatherAppLayoutSample
 import com.kubit.charts.storybook.ui.storybookcomponents.StorybookPreview
 
 @Composable
 internal fun AxisAndLineChartContent() {
     Column {
+
+        StorybookPreview(title = "MultiLine Multiple Nodes", modifier = Modifier.height(400.dp)) {
+            LineChartMultiLineMultipleNodesSample()
+        }
+        StorybookPreview(title = "Weather App", modifier = Modifier) {
+            WeatherAppLayoutSample()
+        }
         StorybookPreview(title = "VAxis, HAxis and LineChart", modifier = Modifier.height(400.dp)) {
             BTCSampleStandard()
         }

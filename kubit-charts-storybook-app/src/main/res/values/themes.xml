@@ -1,4 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.KubitCharts" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="KubitThemeApp.NoActionBar" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!--
+        We must set windowTranslucentStatus attr to true to make the status bar visible in multiple
+        screen configurations because our system allows having multiple colors for the header and
+        if status bar were transparent, content status bar could not be visible.
+        -->
+        <item name="android:windowTranslucentStatus">true</item>
+        <!--
+        For Android API 28 or lower we must set windowTranslucentNavigation attr to true to make the
+        navigation bar visible in multiple screen configurations because our system allows having
+        multiple colors for content behind navigation bar and if navigation bar is transparent,
+        the content could not be visible.
+        -->
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+
+    <!--
+    This theme is defined to use it in floating Activities that need to be translucent to show
+    the previous Activity behind.
+    -->
+    <style name="KubitThemeApp.NoActionBar.Transparent" parent="KubitThemeApp.NoActionBar">
+        <!--
+        Set statusBarColor to transparent to not overlap system bars
+        translucent color and display a darker color.
+        -->
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowActivityTransitions">false</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
 </resources>

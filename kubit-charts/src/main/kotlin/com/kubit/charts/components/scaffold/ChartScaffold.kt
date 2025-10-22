@@ -29,6 +29,7 @@ import com.kubit.charts.components.axis.model.AxisData
 import com.kubit.charts.components.axis.model.AxisPadding
 import com.kubit.charts.components.utils.checkAndGetMaxHorizontalScroll
 import com.kubit.charts.components.utils.checkAndGetMaxVerticalScroll
+import org.jetbrains.annotations.ApiStatus.Experimental
 import kotlin.math.abs
 
 /**
@@ -63,6 +64,7 @@ import kotlin.math.abs
  * @param verticalAxis Composable for the vertical axis. Receives scroll and zoom as parameters.
  * @param content Main content of the scaffold, usually a chart. Receives [ChartScaffoldContentData].
  */
+@Experimental
 @Suppress("LongMethod")
 @Composable
 fun ChartScaffold(
@@ -234,8 +236,16 @@ fun ChartScaffold(
                         }
                     }
             ) {
-                horizontalAxis(horizontalScroll.toDp(), zoom, AxisPadding(start = axisPadding.start, end = axisPadding.end))
-                verticalAxis(verticalScroll.toDp(), zoom, AxisPadding(top = axisPadding.top, bottom = axisPadding.bottom))
+                horizontalAxis(
+                    horizontalScroll.toDp(),
+                    zoom,
+                    AxisPadding(start = axisPadding.start, end = axisPadding.end)
+                )
+                verticalAxis(
+                    verticalScroll.toDp(),
+                    zoom,
+                    AxisPadding(top = axisPadding.top, bottom = axisPadding.bottom)
+                )
                 Box(
                     modifier = Modifier.padding(
                         start = axisPadding.start,
@@ -247,6 +257,57 @@ fun ChartScaffold(
                     content(contentData)
                 }
             }
+        }
+    }
+}
+
+/**
+ * Simplified version of a scaffold for drawing interactive charts without scroll or zoom support.
+ *
+ * Example:
+ * ```kotlin
+ * ChartScaffold(
+ *   xAxisData = xAxis,
+ *   yAxisData = yAxis,
+ *   axisPadding = AxisPadding(),
+ *   horizontalAxis = { /* Draw horizontal axis */ },
+ *   verticalAxis = { /* Draw vertical axis */ },
+ *   content = { /* Draw chart content using data */ }
+ * )
+ * ```
+ *
+ * @param xAxisData Data for the X-Axis ([AxisData]).
+ * @param yAxisData Data for the Y-Axis ([AxisData]).
+ * @param modifier Modifier for the scaffold container.
+ * @param axisPadding Padding for the axes ([AxisPadding]), used to calculate max scroll.
+ * @param horizontalAxis Composable for the horizontal axis. Receives scroll and zoom as parameters.
+ * @param verticalAxis Composable for the vertical axis. Receives scroll and zoom as parameters.
+ * @param content Main content of the scaffold, usually a chart. Receives [ChartScaffoldContentData].
+ */
+@Experimental
+@Suppress("LongMethod")
+@Composable
+fun ChartScaffold(
+    xAxisData: AxisData,
+    yAxisData: AxisData,
+    modifier: Modifier = Modifier,
+    axisPadding: AxisPadding = AxisPadding(),
+    horizontalAxis: @Composable (padding: AxisPadding) -> Unit = { _ -> },
+    verticalAxis: @Composable (padding: AxisPadding) -> Unit = { _ -> },
+    content: @Composable () -> Unit = { },
+) {
+    Box(modifier = modifier) {
+        horizontalAxis(AxisPadding(start = axisPadding.start, end = axisPadding.end))
+        verticalAxis(AxisPadding(top = axisPadding.top, bottom = axisPadding.bottom))
+        Box(
+            modifier = Modifier.padding(
+                start = axisPadding.start,
+                bottom = axisPadding.bottom,
+                end = axisPadding.end,
+                top = axisPadding.top
+            )
+        ) {
+            content()
         }
     }
 }

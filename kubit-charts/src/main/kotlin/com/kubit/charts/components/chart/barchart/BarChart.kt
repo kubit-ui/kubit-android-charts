@@ -77,6 +77,7 @@ import org.jetbrains.annotations.ApiStatus.Experimental
  * @param zoom the zoom factor for the chart, defaults to 1f.
  * @param onBarClick a callback that is invoked when a bar/segment is clicked, defaults to an empty lambda.
  */
+@Experimental
 @SuppressLint("UnusedBoxWithConstraintsScope")
 @Suppress("LongMethod")
 @Composable

@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import org.jetbrains.annotations.ApiStatus.Experimental
 
 /**
  * Displays a vertical chart legend with configurable title, value, color indicator, and spacing.
@@ -56,6 +57,7 @@ import androidx.compose.ui.unit.sp
  * @param contentDescription Content description for accessibility.
  * @param modifier Modifier applied to the legend container.
  */
+@Experimental
 @Composable
 fun VerticalChartLegend(
     titleConfig: ChartLegendTitleConfig,

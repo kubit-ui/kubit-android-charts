@@ -40,6 +40,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import com.kubit.charts.components.chart.piechart.model.Pie
 import com.kubit.charts.components.chart.piechart.model.PieSectionData
+import org.jetbrains.annotations.ApiStatus.Experimental
 import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.atan2
@@ -81,6 +82,7 @@ import kotlin.math.sin
  * @param onPointSelect Callback invoked when a section is selected, providing the [PieSectionData] and selection [Offset]. If null, selection is disabled.
  * @param content Optional composable content to display in the center of the chart.
  */
+@Experimental
 @Suppress("LongMethod")
 @Composable
 fun PieChart(

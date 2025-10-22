@@ -1,7 +1,6 @@
 package com.kubit.charts.storybook.ui.storybookcomponents
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -22,11 +21,10 @@ import androidx.compose.ui.unit.dp
 internal fun StorybookPreview(
     title: String?,
     modifier: Modifier = Modifier,
-    lightBackground: Boolean = !isSystemInDarkTheme(),
+    backgroundColor: Color = StorybookLightPreviewColor,
     content: @Composable () -> Unit
 ) {
-    val backgroundColor =
-        if (lightBackground) StorybookLightPreviewColor else StorybookDarkPreviewColor
+
     Column(
         modifier = modifier.padding(StorybookPreviewPadding)
     ) {
@@ -51,5 +49,4 @@ internal fun StorybookPreview(
 private val StorybookPreviewPadding: Dp = 16.dp
 private val StorybookPreviewInnerPadding: Dp = 16.dp
 private val StorybookPreviewShape: Dp = 12.dp
-private val StorybookDarkPreviewColor: Color = Color(0xFF2E2E2E)
 private val StorybookLightPreviewColor: Color = Color(0xFFF3F3F3)

@@ -37,6 +37,7 @@ import com.kubit.charts.components.axis.model.AxisStepStyle
 import com.kubit.charts.components.axis.model.DecorativeHeightPosition
 import com.kubit.charts.components.axis.model.DecorativeWidthPosition
 import kotlinx.collections.immutable.toPersistentList
+import org.jetbrains.annotations.ApiStatus.Experimental
 
 /**
  * A Composable that renders a horizontal axis chart with customizable labels, grid lines, and decorative elements.
@@ -82,6 +83,7 @@ import kotlinx.collections.immutable.toPersistentList
  *
  * @sample com.kubit.charts.samples.components.axis.HorizontalAxisPreviewBottom
  */
+@Experimental
 @SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
 fun HorizontalAxisChart(
@@ -164,6 +166,7 @@ fun HorizontalAxisChart(
  *
  * @sample com.kubit.charts.samples.components.axis.HorizontalAxisPreviewBottom
  */
+@Experimental
 @Composable
 fun HorizontalAxisChart(
     chartState: AxisChartState,
@@ -251,6 +254,7 @@ fun HorizontalAxisChart(
  *
  * @sample com.kubit.charts.samples.components.axis.VerticalAxisPreviewStart
  */
+@Experimental
 @SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
 fun VerticalAxisChart(
@@ -322,6 +326,7 @@ fun VerticalAxisChart(
  *
  * @sample com.kubit.charts.samples.components.axis.ComplexAxisPreview
  */
+@Experimental
 @Composable
 fun VerticalAxisChart(
     chartState: AxisChartState,
@@ -410,6 +415,7 @@ fun VerticalAxisChart(
  * @see rememberHorizontalAxisDataState
  * @see AxisChartState
  */
+@Experimental
 @Composable
 fun rememberVerticalAxisDataState(
     data: AxisData,
@@ -470,6 +476,7 @@ fun rememberVerticalAxisDataState(
  * @see rememberVerticalAxisDataState
  * @see AxisChartState
  */
+@Experimental
 @Composable
 fun rememberHorizontalAxisDataState(
     data: AxisData,

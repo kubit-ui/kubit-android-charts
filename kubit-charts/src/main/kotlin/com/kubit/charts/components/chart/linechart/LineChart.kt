@@ -49,6 +49,9 @@ import com.kubit.charts.components.chart.common.extensions.drawIntersectionPoint
 import com.kubit.charts.components.chart.common.utils.getLineOrCubicPath
 import com.kubit.charts.components.chart.linechart.extensions.drawLineChart
 import com.kubit.charts.components.chart.linechart.extensions.drawShadowUnderLine
+import com.kubit.charts.components.chart.linechart.maths.CubicAlgorithm
+import com.kubit.charts.components.chart.linechart.maths.getCubicPointsBasic
+import com.kubit.charts.components.chart.linechart.maths.getCubicPointsFristschCarlson
 import com.kubit.charts.components.chart.linechart.model.IntersectionComposable
 import com.kubit.charts.components.chart.linechart.model.Line
 import com.kubit.charts.components.chart.linechart.model.LineStyle
@@ -56,6 +59,7 @@ import com.kubit.charts.components.chart.linechart.model.LineType
 import com.kubit.charts.components.chart.linechart.model.Point
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
+import org.jetbrains.annotations.ApiStatus.Experimental
 
 /**
  * Displays a line chart with one or more lines, supporting selection, zoom, and accessibility.
@@ -93,6 +97,7 @@ import kotlinx.collections.immutable.toImmutableList
  * @param yMin Minimum value for the Y-Axis. If null, calculated automatically from yAxisData.
  * @param onHorizontalScrollChangeRequest Callback invoked when a scroll change is requested (e.g., via accessibility or keyboard).
  * @param onVerticalScrollChangeRequest Callback invoked when a scroll change is requested (e.g., via accessibility or keyboard).
+ * @param interpolationAlgorithm Algorithm used for cubic interpolation of lines. Defaults to [CubicAlgorithm.FritschCarlson].
  *
  * @sample com.kubit.charts.samples.components.linechart.LineChartWithPointsSample
  */
@@ -116,6 +121,7 @@ fun LineChart(
     yMin: Float? = null,
     onHorizontalScrollChangeRequest: ((Float) -> Unit)? = null,
     onVerticalScrollChangeRequest: ((Float) -> Unit)? = null,
+    interpolationAlgorithm: CubicAlgorithm = CubicAlgorithm.FritschCarlson
 ) {
     var xOffset by remember { mutableFloatStateOf(0f) }
     var selectedRawPoint by remember { mutableStateOf<Point?>(null) }
@@ -204,7 +210,7 @@ fun LineChart(
                     0f
                 )
 
-                val (cubicPoints1, cubicPoints2) = getCubicPoints(pointsData)
+                val (cubicPoints1, cubicPoints2) = calculateCubicPoints(pointsData, interpolationAlgorithm)
 
                 LineChartPreRenderData(
                     path = getLineOrCubicPath(
@@ -304,7 +310,7 @@ fun LineChart(
  *
  * @sample com.kubit.charts.samples.components.linechart.LineChartWithPointsFitsInContainerSample
  */
-
+@Experimental
 @Composable
 fun LineChart(
     lines: ImmutableList<Line>,
@@ -361,6 +367,7 @@ fun LineChart(
  * @param preRenderData Pre-rendered data for each line, including mapped points and paths.
  * @param lines Immutable list of lines to be drawn.
  */
+@Experimental
 @Composable
 private fun ComposableIntersectionNodeLayer(
     preRenderData: ImmutableList<LineChartPreRenderData>,
@@ -569,32 +576,11 @@ private fun getMappingPointsToGraph(
         Point(x1, y1, point.intersectionNode)
     }
 
-/**
- * Calculates cubic control points for smooth curves between points in the line chart.
- *
- * @param pointsData List of points on the line graph.
- * @return Pair of lists containing left and right control points for cubic curves.
- */
-private fun getCubicPoints(pointsData: List<Point>): Pair<MutableList<Offset>, MutableList<Offset>> {
-    val cubicPoints1 = mutableListOf<Offset>()
-    val cubicPoints2 = mutableListOf<Offset>()
-
-    for (i in 1 until pointsData.size) {
-        cubicPoints1.add(
-            Offset(
-                (pointsData[i].x + pointsData[i - 1].x) / 2,
-                pointsData[i - 1].y
-            )
-        )
-        cubicPoints2.add(
-            Offset(
-                (pointsData[i].x + pointsData[i - 1].x) / 2,
-                pointsData[i].y
-            )
-        )
+private fun calculateCubicPoints(pointsData: List<Point>, algorithm: CubicAlgorithm): Pair<MutableList<Offset>, MutableList<Offset>> =
+    when (algorithm) {
+        CubicAlgorithm.FritschCarlson -> getCubicPointsFristschCarlson(pointsData)
+        else -> getCubicPointsBasic(pointsData)
     }
-    return Pair(cubicPoints1, cubicPoints2)
-}
 
 /**
  * Returns the [DrawStyle] for the path based on the line type and style.
@@ -606,7 +592,7 @@ private fun getCubicPoints(pointsData: List<Point>): Pair<MutableList<Offset>, M
 internal fun getDrawStyleForPath(
     lineType: LineType,
     lineStyle: LineStyle
-): DrawStyle = if (lineType.isDotted) {
+): DrawStyle = if (lineType.dashed) {
     Stroke(
         width = lineStyle.width,
         pathEffect = PathEffect.dashPathEffect(lineType.intervals)

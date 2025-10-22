@@ -68,7 +68,7 @@ fun LineChartWithPointsFitsInContainerSample() {
                 }
                 setLineStyle(
                     LineStyle(
-                        lineType = LineType.SmoothCurve(isDotted = false),
+                        lineType = LineType.SmoothCurve(dashed = false),
                         color = ChartsSampleColors.colorGreen75,
                         width = 5f
                     )
@@ -473,25 +473,25 @@ fun LineChartWithMixedNodesSample() {
                 lines = listOf(
                     lineBuilder {
                         addPoints(pointsData) {
-                        if (it % 2 == 0) {
-                            IntersectionPoint(color = ChartsSampleColors.colorTurquoise60)
-                        } else {
-                            IntersectionComposable { modifier, point ->
-                                Button(
-                                    modifier = modifier,
-                                    onClick = {
-                                        Toast.makeText(
-                                            context,
-                                            "Point(${point.x},${point.y}) clicked!",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    },
-                                    colors = ButtonDefaults.buttonColors(containerColor = ChartsSampleColors.colorTurquoise60)
-                                ) {
-                                    Text(text = "Test button!", fontSize = 6.sp)
+                            if (it % 2 == 0) {
+                                IntersectionPoint(color = ChartsSampleColors.colorTurquoise60)
+                            } else {
+                                IntersectionComposable { modifier, point ->
+                                    Button(
+                                        modifier = modifier,
+                                        onClick = {
+                                            Toast.makeText(
+                                                context,
+                                                "Point(${point.x},${point.y}) clicked!",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        },
+                                        colors = ButtonDefaults.buttonColors(containerColor = ChartsSampleColors.colorTurquoise60)
+                                    ) {
+                                        Text(text = "Test button!", fontSize = 6.sp)
+                                    }
                                 }
                             }
-                        }
                         }
                         setLineStyle(
                             LineStyle(
@@ -555,6 +555,7 @@ fun LineChartWithoutPointsSample() {
         }
     )
 }
+
 @Preview
 @Composable
 fun LineChartGradientColorSample() {
@@ -648,7 +649,7 @@ fun LineChartDottedSingleSample() {
                             setLineStyle(
                                 LineStyle(
                                     lineType = LineType.SmoothCurve(
-                                        isDotted = true
+                                        dashed = true
                                     ),
                                     color = ChartsSampleColors.colorSky85,
                                 )
@@ -732,11 +733,11 @@ fun LineChartMultiColorSample() {
 
                         lineBuilder {
                             addPoints(
-                            pointsData.subList(
-                                0,
-                                10
+                                pointsData.subList(
+                                    0,
+                                    10
+                                )
                             )
-                        )
                             setLineStyle(
                                 LineStyle(
                                     lineType = LineType.Straight(),
@@ -753,11 +754,11 @@ fun LineChartMultiColorSample() {
 
                         lineBuilder {
                             addPoints(
-                            pointsData.subList(
-                                50,
-                                80
+                                pointsData.subList(
+                                    50,
+                                    80
+                                )
                             )
-                        )
                             setLineStyle(
                                 LineStyle(
                                     lineType = LineType.Straight(),
@@ -774,11 +775,11 @@ fun LineChartMultiColorSample() {
 
                         lineBuilder {
                             addPoints(
-                            pointsData.subList(
-                                90,
-                                100
+                                pointsData.subList(
+                                    90,
+                                    100
+                                )
                             )
-                        )
                             setLineStyle(
                                 LineStyle(
                                     lineType = LineType.Straight(),
@@ -835,23 +836,23 @@ fun LineChartMultipleLinesSample() {
         lines.add(
             lineBuilder {
                 addPoints(
-                getLineChartData(
-                    100,
-                    start = 50,
-                    maxRange = 100
-                )
-            )
-                .setLineStyle(
-                    LineStyle(
-                        color = colorPaletteList[i]
+                    getLineChartData(
+                        100,
+                        start = 50,
+                        maxRange = 100
                     )
                 )
-                .setSelectionHighlightPoint(
-                    SelectionHighlightPoint()
-                )
-                .setSelectionHighlightPopUp(
-                    SelectionHighlightPopUp()
-                )
+                    .setLineStyle(
+                        LineStyle(
+                            color = colorPaletteList[i]
+                        )
+                    )
+                    .setSelectionHighlightPoint(
+                        SelectionHighlightPoint()
+                    )
+                    .setSelectionHighlightPopUp(
+                        SelectionHighlightPopUp()
+                    )
             }
         )
     }
@@ -897,9 +898,9 @@ fun LineChartMultipleLinesSample() {
 fun LineChartMultiLinesAreaSample() {
     val colorPaletteList =
         listOf(
-            ChartsSampleColors.colorRed30,
-            ChartsSampleColors.colorGreen75,
-            ChartsSampleColors.colorPurple75
+            ChartsSampleColors.colorRed30.copy(alpha = 1f),
+            ChartsSampleColors.colorGreen75.copy(alpha = 1f),
+            ChartsSampleColors.colorPurple75.copy(alpha = 1f)
         )
 
     val lines =
@@ -923,10 +924,25 @@ fun LineChartMultiLinesAreaSample() {
                 )
                 setShadowUnderLine(
                     ShadowUnderLine(
-                        color = when (i) {
-                            0 -> colorPaletteList[0]
-                            1 -> colorPaletteList[1]
-                            else -> colorPaletteList[2]
+                        brush = when (i) {
+                            0 -> Brush.verticalGradient(
+                                listOf(
+                                    colorPaletteList[0],
+                                    Color.Transparent
+                                )
+                            )
+                            1 -> Brush.verticalGradient(
+                                listOf(
+                                    colorPaletteList[1],
+                                    Color.Transparent
+                                )
+                            )
+                            else -> Brush.verticalGradient(
+                                listOf(
+                                    colorPaletteList[2],
+                                    Color.Transparent
+                                )
+                            )
                         },
                         alpha = 0.3f,
                     )
@@ -985,7 +1001,8 @@ fun LineChartMultiLinesAreaTransparentSample() {
         listOf(
             ChartsSampleColors.colorBtcGreen,
             ChartsSampleColors.colorBtcOrange,
-            ChartsSampleColors.colorSky85)
+            ChartsSampleColors.colorSky85
+        )
 
     val lines =
         mutableListOf<Line>()

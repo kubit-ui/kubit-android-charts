@@ -9,7 +9,7 @@ fun StorybookTheme(
     content: @Composable () -> Unit
 ) {
     KubitChartsTheme(
-        darkTheme = darkTheme
+        darkTheme = false
     ) {
         content()
     }

@@ -46,6 +46,30 @@ class LineBuilder {
     }
 
     /**
+     * Add a point to the line
+     *
+     * @param point The point to add to the line
+     */
+    fun addPoint(
+        point: Point
+    ): LineBuilder {
+        points.add(point)
+        return this
+    }
+
+    /**
+     * Add a points list to the line
+     *
+     * @param points The points to add to the line
+     */
+    fun addPoints(
+        points: List<Point>
+    ): LineBuilder {
+        this.points.addAll(points)
+        return this
+    }
+
+    /**
      * Set the [LineStyle] for the line
      */
     fun setLineStyle(lineStyle: LineStyle): LineBuilder {

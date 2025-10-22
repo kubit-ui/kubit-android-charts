@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.drawscope.Fill
 data class ShadowUnderLine(
     val color: Color = Color.Black,
     val brush: Brush? = null,
-    val alpha: Float = 0.1f,
+    val alpha: Float = 1f,
     val style: DrawStyle = Fill,
     val colorFilter: ColorFilter? = null,
     val blendMode: BlendMode = DrawScope.DefaultBlendMode,

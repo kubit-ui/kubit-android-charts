@@ -19,7 +19,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
  * @property blendMode The blend mode used when drawing the line.
  */
 data class LineStyle(
-    val lineType: LineType = LineType.SmoothCurve(isDotted = false),
+    val lineType: LineType = LineType.SmoothCurve(dashed = false),
     val color: Color = Color.Black,
     val width: Float = 8f,
     val alpha: Float = 1.0f,

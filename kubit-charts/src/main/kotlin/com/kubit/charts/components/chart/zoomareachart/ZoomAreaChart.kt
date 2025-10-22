@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,6 +32,8 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.round
+import androidx.compose.ui.zIndex
+import org.jetbrains.annotations.ApiStatus.Experimental
 
 /**
  * A composable that displays a zoom area chart with two thumbs to select the range.
@@ -47,6 +50,11 @@ import androidx.compose.ui.unit.round
  *   content = { /* Chart content here */ },
  *   startThumb = { /* Custom composable for start thumb */ },
  *   endThumb = { /* Custom composable for end thumb */ },
+ *   thumbPosition = ThumbPosition.Middle,
+ *   customStartOffset = 10f, // Only used if thumbPosition is Custom
+ *   customEndOffset = -10f,  // Only used if thumbPosition is Custom
+ *   initialStartFraction = 0.2f,
+ *   initialEndFraction = 0.8f,
  *   onWidthChange = { width -> /* Handle width change */ },
  *   onHeightChange = { height -> /* Handle height change */ },
  *   onSelectionChange = { start, end -> /* Handle selection change */ }
@@ -63,10 +71,16 @@ import androidx.compose.ui.unit.round
  * @param content The content of the chart.
  * @param startThumb The composable that will be displayed as the start thumb.
  * @param endThumb The composable that will be displayed as the end thumb.
+ * @param thumbPosition The position of the thumbs relative to the zoom area. Options are Outside, Inside, Middle, and Custom.
+ * @param customStartOffset The custom offset for the start thumb when thumbPosition is set to Custom. Positive values move the thumb to the right, negative values to the left.
+ * @param customEndOffset The custom offset for the end thumb when thumbPosition is set to Custom. Positive values move the thumb to the right, negative values to the left.
+ * @param initialStartFraction The initial position of the start thumb as a fraction of the total width (0f to 1f).
+ * @param initialEndFraction The initial position of the end thumb as a fraction of the total width (0f to 1f).
  * @param onWidthChange A lambda that will be called when the width of the chart changes.
  * @param onHeightChange A lambda that will be called when the height of the chart changes.
  * @param onSelectionChange A lambda that will be called when the selection range changes.
  */
+@Experimental
 @SuppressLint("UnusedBoxWithConstraintsScope")
 @Suppress("LongMethod")
 @Composable
@@ -81,6 +95,11 @@ fun ZoomAreaChart(
     content: @Composable () -> Unit = {},
     startThumb: @Composable () -> Unit = {},
     endThumb: @Composable () -> Unit = {},
+    thumbPosition: ZoomAreaThumbPosition = ZoomAreaThumbPosition.Middle,
+    customStartOffset: Float? = null,
+    customEndOffset: Float? = null,
+    initialStartFraction: Float = 0f,
+    initialEndFraction: Float = 1f,
     onWidthChange: (Int) -> Unit = {},
     onHeightChange: (Int) -> Unit = {},
     onSelectionChange: (Float, Float) -> Unit = { _, _ -> }
@@ -89,80 +108,82 @@ fun ZoomAreaChart(
         modifier = modifier
             .fillMaxWidth()
             .height(thumbSize)
-            .padding(horizontal = thumbSize / 2)
+            .padding(horizontal = getDefaultHorizontalPadding(thumbPosition, thumbSize))
             .background(backgroundColor)
     ) {
         val parentWidthPx = constraints.maxWidth
         val thumbSizePx = with(LocalDensity.current) { thumbSize.toPx() }
-        var startOffset by remember { mutableStateOf(Offset(-thumbSizePx / 2, 0f)) }
-        var endOffset by remember {
-            mutableStateOf(
-                Offset(
-                    parentWidthPx.toFloat() - thumbSizePx / 2,
-                    0f
-                )
+
+        val thumbState = rememberThumbStateWithInitialFractions(
+            parentWidthPx,
+            thumbSizePx,
+            initialStartFraction,
+            initialEndFraction
+        )
+        val positionCalculator = rememberThumbPositions(
+            parentWidthPx, thumbSizePx, thumbPosition, customStartOffset, customEndOffset
+        )
+
+        LaunchedEffect(parentWidthPx) { onWidthChange(parentWidthPx) }
+        LaunchedEffect(constraints.maxHeight) { onHeightChange(constraints.maxHeight) }
+        LaunchedEffect(thumbState.startOffset, thumbState.endOffset) {
+            val (selectionStart, selectionEnd) = positionCalculator.calculateSelection(
+                thumbState.startOffset,
+                thumbState.endOffset
             )
-        }
-
-        onWidthChange(parentWidthPx)
-        onHeightChange(constraints.maxHeight)
-
-        val selectionStart = ((startOffset.x + thumbSizePx / 2) / parentWidthPx).coerceIn(0f, 1f)
-        val selectionEnd = ((endOffset.x + thumbSizePx / 2) / parentWidthPx).coerceIn(0f, 1f)
-
-        LaunchedEffect(selectionStart, selectionEnd) {
             onSelectionChange(selectionStart, selectionEnd)
         }
 
         content()
 
-        if (selectionStart != 0f || selectionEnd != 1f) {
-            ZoomArea(
-                startOffset = startOffset,
-                endOffset = endOffset,
-                thumbSizePx = thumbSizePx,
-                opacityColor = opacityColor,
-                zoomAreaAccessibilityItem = zoomAreaAccessibilityItem,
-                onDrag = { dragAmount ->
-                    val dragX = dragAmount.x
-                    val newStartX = (startOffset.x + dragX).coerceIn(
-                        -thumbSizePx / 2,
-                        parentWidthPx - (endOffset.x - startOffset.x) - thumbSizePx / 2
-                    )
-                    val newEndX = newStartX + (endOffset.x - startOffset.x)
-
-                    startOffset = Offset(newStartX, 0f)
-                    endOffset = Offset(newEndX, 0f)
-                }
-            )
+        val startThumbDragHandler = remember(thumbState, thumbSizePx, parentWidthPx) {
+            createStartThumbDragHandler(thumbState, thumbSizePx, parentWidthPx)
+        }
+        val endThumbDragHandler = remember(thumbState, thumbSizePx, parentWidthPx) {
+            createEndThumbDragHandler(thumbState, thumbSizePx, parentWidthPx)
+        }
+        val zoomAreaDragHandler = remember(thumbState, thumbSizePx, parentWidthPx) {
+            createZoomAreaDragHandler(thumbState, thumbSizePx, parentWidthPx)
         }
 
+        ZoomArea(
+            startOffset = thumbState.startOffset,
+            endOffset = thumbState.endOffset,
+            thumbSizePx = thumbSizePx,
+            opacityColor = opacityColor,
+            zoomAreaAccessibilityItem = zoomAreaAccessibilityItem,
+            onDrag = zoomAreaDragHandler
+        )
+
         Thumb(
-            modifier = Modifier.offset { startOffset.round() },
-            onDrag = { dragAmount ->
-                val summed = startOffset + dragAmount
-                startOffset = Offset(
-                    x = summed.x.coerceIn(-thumbSizePx / 2, endOffset.x - thumbSizePx),
-                    y = 0f
-                )
-            },
+            modifier = Modifier
+                .offset {
+                    Offset(
+                        thumbState.startOffset.x + positionCalculator.visualStartShiftPx,
+                        0f
+                    ).round()
+                }
+                .zIndex(if (thumbState.activeThumb == ActiveThumb.Start) 2f else 1f),
+            onDrag = startThumbDragHandler,
+            onPress = { thumbState.activeThumb = ActiveThumb.Start },
+            onRelease = { thumbState.activeThumb = null },
             thumbSize = thumbSize,
             handlerAccessibilityItem = leftHandlerAccessibilityItem,
             content = startThumb
         )
 
         Thumb(
-            modifier = Modifier.offset { endOffset.round() },
-            onDrag = { dragAmount ->
-                val summed = endOffset + dragAmount
-                endOffset = Offset(
-                    x = summed.x.coerceIn(
-                        startOffset.x + thumbSizePx,
-                        parentWidthPx.toFloat() - thumbSizePx / 2
-                    ),
-                    y = 0f
-                )
-            },
+            modifier = Modifier
+                .offset {
+                    Offset(
+                        thumbState.endOffset.x + positionCalculator.visualEndShiftPx,
+                        0f
+                    ).round()
+                }
+                .zIndex(if (thumbState.activeThumb == ActiveThumb.End) 2f else 1f),
+            onDrag = endThumbDragHandler,
+            onPress = { thumbState.activeThumb = ActiveThumb.End },
+            onRelease = { thumbState.activeThumb = null },
             thumbSize = thumbSize,
             content = endThumb,
             handlerAccessibilityItem = rightHandlerAccessibilityItem,
@@ -174,14 +195,19 @@ fun ZoomAreaChart(
  * A composable that displays a draggable thumb.
  *
  * @param onDrag A lambda that will be called when the thumb is dragged.
+ * @param onPress A lambda that will be called when the thumb is pressed.
+ * @param onRelease A lambda that will be called when the thumb is released.
  * @param thumbSize The size of the thumb.
  * @param handlerAccessibilityItem The accessibility item for the thumb.
  * @param content The content of the thumb.
  * @param modifier The modifier to be applied to the thumb.
  */
+@Experimental
 @Composable
 fun Thumb(
     onDrag: (Offset) -> Unit,
+    onPress: () -> Unit,
+    onRelease: () -> Unit,
     thumbSize: Dp,
     handlerAccessibilityItem: ZoomAreaChartAccessibilityItem?,
     content: @Composable () -> Unit,
@@ -194,7 +220,17 @@ fun Thumb(
         modifier = modifier
             .size(thumbSize)
             .pointerInput(Unit) {
-                detectDragGestures { change, dragAmount ->
+                detectDragGestures(
+                    onDragStart = {
+                        onPress()
+                    },
+                    onDragEnd = {
+                        onRelease()
+                    },
+                    onDragCancel = {
+                        onRelease()
+                    }
+                ) { change, dragAmount ->
                     change.consume()
                     onDrag(dragAmount)
                 }
@@ -231,6 +267,49 @@ fun Thumb(
     }
 }
 
+@Composable
+private fun rememberThumbPositions(
+    parentWidthPx: Int,
+    thumbSizePx: Float,
+    thumbPosition: ZoomAreaThumbPosition,
+    customStartOffset: Float?,
+    customEndOffset: Float?
+): ThumbPositionCalculator {
+    return remember(parentWidthPx, thumbSizePx, thumbPosition, customStartOffset, customEndOffset) {
+        ThumbPositionCalculator(
+            parentWidthPx = parentWidthPx,
+            thumbSizePx = thumbSizePx,
+            thumbPosition = thumbPosition,
+            customStartOffset = customStartOffset,
+            customEndOffset = customEndOffset
+        )
+    }
+}
+
+@Composable
+private fun rememberThumbStateWithInitialFractions(
+    parentWidthPx: Int,
+    thumbSizePx: Float,
+    initialStartFraction: Float,
+    initialEndFraction: Float
+): ThumbState {
+    return remember(parentWidthPx) {
+        val initialStartOffset = Offset(
+            (initialStartFraction * parentWidthPx) - thumbSizePx / 2,
+            0f
+        )
+        val initialEndOffset = Offset(
+            (initialEndFraction * parentWidthPx) - thumbSizePx / 2,
+            0f
+        )
+
+        ThumbState(
+            initialStartOffset = initialStartOffset,
+            initialEndOffset = initialEndOffset
+        )
+    }
+}
+
 /**
  * A composable that displays the draggable zoom area between the thumbs.
  *
@@ -243,7 +322,7 @@ fun Thumb(
  * @param modifier Modifier to be applied to the zoom area.
  */
 @Composable
-fun ZoomArea(
+private fun ZoomArea(
     startOffset: Offset,
     endOffset: Offset,
     thumbSizePx: Float,
@@ -293,6 +372,67 @@ fun ZoomArea(
     )
 }
 
+private fun getDefaultHorizontalPadding(
+    thumbPosition: ZoomAreaThumbPosition,
+    thumbSize: Dp
+): Dp =
+    when (thumbPosition) {
+        ZoomAreaThumbPosition.Custom -> 0.dp
+        else -> thumbSize / 2
+    }
+
+private fun createStartThumbDragHandler(
+    thumbState: ThumbState,
+    thumbSizePx: Float,
+    parentWidthPx: Int
+): (Offset) -> Unit = { dragAmount ->
+    val summed = thumbState.startOffset + dragAmount
+    val newStartX = summed.x.coerceIn(
+        -thumbSizePx / 2,
+        parentWidthPx.toFloat() - thumbSizePx / 2
+    )
+
+    if (newStartX > thumbState.endOffset.x) {
+        thumbState.endOffset = Offset(newStartX, 0f)
+    }
+
+    thumbState.startOffset = Offset(newStartX, 0f)
+}
+
+private fun createEndThumbDragHandler(
+    thumbState: ThumbState,
+    thumbSizePx: Float,
+    parentWidthPx: Int
+): (Offset) -> Unit = { dragAmount ->
+    val summed = thumbState.endOffset + dragAmount
+    val newEndX = summed.x.coerceIn(
+        -thumbSizePx / 2,
+        parentWidthPx.toFloat() - thumbSizePx / 2
+    )
+
+    if (newEndX < thumbState.startOffset.x) {
+        thumbState.startOffset = Offset(newEndX, 0f)
+    }
+
+    thumbState.endOffset = Offset(newEndX, 0f)
+}
+
+private fun createZoomAreaDragHandler(
+    thumbState: ThumbState,
+    thumbSizePx: Float,
+    parentWidthPx: Int
+): (Offset) -> Unit = { dragAmount ->
+    val dragX = dragAmount.x
+    val newStartX = (thumbState.startOffset.x + dragX).coerceIn(
+        -thumbSizePx / 2,
+        parentWidthPx - (thumbState.endOffset.x - thumbState.startOffset.x) - thumbSizePx / 2
+    )
+    val newEndX = newStartX + (thumbState.endOffset.x - thumbState.startOffset.x)
+
+    thumbState.startOffset = Offset(newStartX, 0f)
+    thumbState.endOffset = Offset(newEndX, 0f)
+}
+
 /**
  * Represents accessibility information for the zoom area chart and its thumbs.
  *
@@ -307,3 +447,64 @@ data class ZoomAreaChartAccessibilityItem(
     val rightCustomAction: String,
     val movementFraction: Int = 10
 )
+
+@Stable
+private class ThumbState(
+    initialStartOffset: Offset,
+    initialEndOffset: Offset
+) {
+    var startOffset by mutableStateOf(initialStartOffset)
+    var endOffset by mutableStateOf(initialEndOffset)
+    var activeThumb by mutableStateOf<ActiveThumb?>(null)
+}
+
+private class ThumbPositionCalculator(
+    private val parentWidthPx: Int,
+    private val thumbSizePx: Float,
+    private val thumbPosition: ZoomAreaThumbPosition,
+    private val customStartOffset: Float?,
+    private val customEndOffset: Float?
+) {
+    val visualStartShiftPx: Float
+        get() = when (thumbPosition) {
+            ZoomAreaThumbPosition.Middle -> 0f
+            ZoomAreaThumbPosition.Outside -> -thumbSizePx / 2
+            ZoomAreaThumbPosition.Inside -> thumbSizePx / 2
+            ZoomAreaThumbPosition.Custom -> customStartOffset ?: 0f
+        }
+
+    val visualEndShiftPx: Float
+        get() = when (thumbPosition) {
+            ZoomAreaThumbPosition.Middle -> 0f
+            ZoomAreaThumbPosition.Outside -> thumbSizePx / 2
+            ZoomAreaThumbPosition.Inside -> -thumbSizePx / 2
+            ZoomAreaThumbPosition.Custom -> customEndOffset ?: 0f
+        }
+
+    fun calculateSelection(startOffset: Offset, endOffset: Offset): Pair<Float, Float> {
+        val selectionStart = if (parentWidthPx > 0) {
+            ((startOffset.x + thumbSizePx / 2) / parentWidthPx).coerceIn(0f, 1f)
+        } else {
+            0f
+        }
+
+        val selectionEnd = if (parentWidthPx > 0) {
+            ((endOffset.x + thumbSizePx / 2) / parentWidthPx).coerceIn(0f, 1f)
+        } else {
+            1f
+        }
+
+        return selectionStart to selectionEnd
+    }
+}
+
+private enum class ActiveThumb {
+    Start, End
+}
+
+/**
+ * Enum class representing the position of the zoom area chart thumbs.
+ */
+enum class ZoomAreaThumbPosition {
+    Outside, Inside, Middle, Custom
+}

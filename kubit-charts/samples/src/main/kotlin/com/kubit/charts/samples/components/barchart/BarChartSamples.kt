@@ -40,6 +40,7 @@ import com.kubit.charts.components.scaffold.ChartScaffold
 import com.kubit.charts.samples.components.utils.ChartsSampleColors
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
+import kotlinx.collections.immutable.toPersistentList
 import org.jetbrains.annotations.ApiStatus.Experimental
 
 @Preview(heightDp = 25, showBackground = true)
@@ -106,7 +107,7 @@ fun SingleVerticalBarChartBottomLabel() {
                 BarChartSegmentData(
                     minValue = 0.0,
                     maxValue = 5.0,
-                    label = "BarChart",
+                    label = "B",
                     color = ChartsSampleColors.colorPurple75,
                     contentDescription = "Test Bar Red",
                     labelPosition = BarChartLabelPosition.CenterStartOutside
@@ -828,10 +829,11 @@ fun BarChartWithAxis() {
     )
 }
 
-@Preview(heightDp = 450)
+@Preview(heightDp = 350)
 @Composable
 @Suppress("LongMethod", "MagicNumber")
 fun BarChartWithLineChartInAxis() {
+
     ChartScaffold(
         modifier = Modifier.background(Color.DarkGray),
         isPinchZoomEnabled = true,
@@ -968,7 +970,7 @@ fun BarChartWithLineChartInAxis() {
                             )
                             setShadowUnderLine(
                                 ShadowUnderLine(
-                                    color = ChartsSampleColors.colorBtcOrange.copy(alpha = 0.3f),
+                                    color = ChartsSampleColors.colorBtcOrange.copy(alpha = 0.1f),
                                 )
                             )
                         }
@@ -984,6 +986,327 @@ fun BarChartWithLineChartInAxis() {
                         // Handle point selection
                         Log.d("LineChart", "Point selected: (${point.x},${point.y}) at $offset")
                     },
+                )
+            }
+        }
+    )
+}
+
+@Preview(heightDp = HistogramHeightDp, widthDp = HistogramWidthDp)
+@Composable
+@Suppress("LongMethod", "MagicNumber")
+fun BarChartHistogramWithAxis() {
+    val yUnitSize = 22.dp
+    val xUnitSize = 30.dp
+    val startPadding = 50.dp
+    val barThickness = 25.dp
+
+    ChartScaffold(
+            modifier =
+                Modifier.background(Color.DarkGray)
+                .padding(end = 10.dp),
+            isPinchZoomEnabled = true,
+            xAxisData = HistogramHorizontalSteps,
+            yAxisData = HistogramVerticalSteps,
+            xUnitSize = xUnitSize,
+            yUnitSize = yUnitSize,
+            axisPadding = AxisPadding(start = startPadding, bottom = LabelSize),
+            horizontalAxis = { horizontalScroll, zoom, padding ->
+                HorizontalAxisChart(
+                    data = HistogramHorizontalSteps,
+                    type = HorizontalAxisType.Bottom,
+                    fixedUnitSize = xUnitSize,
+                    labelHeight = LabelSize,
+                    padding = padding,
+                    horizontalScroll = horizontalScroll,
+                    zoom = zoom
+                )
+            },
+            verticalAxis = { verticalScroll, zoom, padding ->
+                VerticalAxisChart(
+                    data = HistogramVerticalSteps,
+                    type = VerticalAxisType.Start,
+                    labelWidth = startPadding,
+                    fixedUnitSize = yUnitSize,
+                    padding = padding,
+                    verticalScroll = verticalScroll,
+                    zoom = zoom
+                )
+            },
+            content = { contentData ->
+                with(contentData) {
+                    BarChart(
+                        data =
+                            HistogramPoints.map {
+                                BarChartData(
+                                    type = BarChartType.Single,
+                                    orientation = BarChartOrientation.Vertical,
+                                    appearance = BarChartAppearance.Squared,
+                                    segments = listOf(
+                                        BarChartSegmentData(
+                                            minValue = 0.0,
+                                            maxValue = it.y.toDouble(),
+                                            label = "Test",
+                                            color = ChartsSampleColors.colorTurquoise60,
+                                            contentDescription = "Test Bar Red"
+                                        )
+                                    ),
+                                    barThickness = barThickness,
+                                    stepPosition = it.x,
+                                    barChartAlignment = BarChartAlignment.Center,
+                                )
+                            }.toPersistentList(),
+                        xAxisData = HistogramHorizontalSteps,
+                        yAxisData = HistogramVerticalSteps,
+                        xAxisStepSize = xUnitSize,
+                        yAxisStepSize = yUnitSize,
+                        horizontalScroll = horizontalScroll,
+                        verticalScroll = verticalScroll,
+                        zoom = zoom,
+                    )
+                }
+            }
+        )
+}
+
+@Preview(heightDp = HistogramHeightDp, widthDp = HistogramWidthDp)
+@Composable
+@Suppress("LongMethod", "MagicNumber")
+fun BarChartGroupedWithAxis() {
+    val yUnitSize = 22.dp
+    val xUnitSize = 60.dp
+    val startPadding = 50.dp
+    val barThickness = 25.dp
+
+    ChartScaffold(
+        modifier =
+            Modifier.background(Color.DarkGray)
+                .padding(end = 10.dp),
+        isPinchZoomEnabled = true,
+        xAxisData = HistogramHorizontalSteps,
+        yAxisData = HistogramVerticalSteps,
+        xUnitSize = xUnitSize,
+        yUnitSize = yUnitSize,
+        axisPadding = AxisPadding(start = startPadding, bottom = LabelSize),
+        horizontalAxis = { horizontalScroll, zoom, padding ->
+            HorizontalAxisChart(
+                data = HistogramHorizontalSteps,
+                type = HorizontalAxisType.Bottom,
+                fixedUnitSize = xUnitSize,
+                labelHeight = LabelSize,
+                padding = padding,
+                horizontalScroll = horizontalScroll,
+                zoom = zoom
+            )
+        },
+        verticalAxis = { verticalScroll, zoom, padding ->
+            VerticalAxisChart(
+                data = GroupedVerticalSteps,
+                type = VerticalAxisType.Start,
+                labelWidth = startPadding,
+                fixedUnitSize = yUnitSize,
+                padding = padding,
+                verticalScroll = verticalScroll,
+                zoom = zoom
+            )
+        },
+        content = { contentData ->
+            with(contentData) {
+                BarChart(
+                    data = persistentListOf(
+                        BarChartData(
+                            type = BarChartType.Grouped,
+                            orientation = BarChartOrientation.Vertical,
+                            appearance = BarChartAppearance.Squared,
+                            segments = persistentListOf(
+                                BarChartSegmentData(
+                                    minValue = 0.0,
+                                    maxValue = 1.0,
+                                    color = ChartsSampleColors.colorBtcOrange,
+                                    contentDescription = "Test Bar Segment Magenta",
+                                    labelPosition = BarChartLabelPosition.TopCenter
+                                ),
+                                BarChartSegmentData(
+                                    minValue = 0.0,
+                                    maxValue = 4.0,
+                                    color = ChartsSampleColors.colorTurquoise60,
+                                    contentDescription = "Test Bar Segment Yellow",
+                                    labelPosition = BarChartLabelPosition.TopCenter
+                                ),
+                                BarChartSegmentData(
+                                    minValue = 0.0,
+                                    maxValue = 5.0,
+                                    color = ChartsSampleColors.colorBtcGreen,
+                                    contentDescription = "Test Bar Segment Yellow",
+                                    labelPosition = BarChartLabelPosition.TopCenter
+                                ),
+                            ),
+                            barThickness = BarThickness,
+                            barChartAlignment = BarChartAlignment.Center
+                        ),
+                        BarChartData(
+                            type = BarChartType.Grouped,
+                            orientation = BarChartOrientation.Vertical,
+                            appearance = BarChartAppearance.Squared,
+                            segments = persistentListOf(
+                                BarChartSegmentData(
+                                    minValue = 0.0,
+                                    maxValue = 3.0,
+                                    color = ChartsSampleColors.colorBtcOrange,
+                                    contentDescription = "Test Bar Segment Magenta",
+                                    labelPosition = BarChartLabelPosition.TopCenter
+                                ),
+                                BarChartSegmentData(
+                                    minValue = 0.0,
+                                    maxValue = 6.0,
+                                    color = ChartsSampleColors.colorTurquoise60,
+                                    contentDescription = "Test Bar Segment Yellow",
+                                    labelPosition = BarChartLabelPosition.TopCenter
+                                ),
+                                BarChartSegmentData(
+                                    minValue = 0.0,
+                                    maxValue = 5.0,
+                                    color = ChartsSampleColors.colorBtcGreen,
+                                    contentDescription = "Test Bar Segment Yellow",
+                                    labelPosition = BarChartLabelPosition.TopCenter
+                                ),
+                            ),
+                            barThickness = BarThickness,
+                            barChartAlignment = BarChartAlignment.Center,
+                            stepPosition = 1f
+                        ),
+                        BarChartData(
+                            type = BarChartType.Grouped,
+                            orientation = BarChartOrientation.Vertical,
+                            appearance = BarChartAppearance.Squared,
+                            segments = persistentListOf(
+                                BarChartSegmentData(
+                                    minValue = 0.0,
+                                    maxValue = 4.0,
+                                    color = ChartsSampleColors.colorBtcOrange,
+                                    contentDescription = "Test Bar Segment Magenta",
+                                    labelPosition = BarChartLabelPosition.TopCenter
+                                ),
+                                BarChartSegmentData(
+                                    minValue = 0.0,
+                                    maxValue = 8.0,
+                                    color = ChartsSampleColors.colorTurquoise60,
+                                    contentDescription = "Test Bar Segment Yellow",
+                                    labelPosition = BarChartLabelPosition.TopCenter
+                                ),
+                                BarChartSegmentData(
+                                    minValue = 0.0,
+                                    maxValue = 3.0,
+                                    color = ChartsSampleColors.colorBtcGreen,
+                                    contentDescription = "Test Bar Segment Yellow",
+                                    labelPosition = BarChartLabelPosition.TopCenter
+                                ),
+                            ),
+                            barThickness = BarThickness,
+                            barChartAlignment = BarChartAlignment.Center,
+                            stepPosition = 2f
+                        ),
+                        BarChartData(
+                            type = BarChartType.Grouped,
+                            orientation = BarChartOrientation.Vertical,
+                            appearance = BarChartAppearance.Squared,
+                            segments = persistentListOf(
+                                BarChartSegmentData(
+                                    minValue = 0.0,
+                                    maxValue = 3.4,
+                                    color = ChartsSampleColors.colorBtcOrange,
+                                    contentDescription = "Test Bar Segment Magenta",
+                                    labelPosition = BarChartLabelPosition.TopCenter
+                                ),
+                                BarChartSegmentData(
+                                    minValue = 0.0,
+                                    maxValue = 6.2,
+                                    color = ChartsSampleColors.colorTurquoise60,
+                                    contentDescription = "Test Bar Segment Yellow",
+                                    labelPosition = BarChartLabelPosition.TopCenter
+                                ),
+                                BarChartSegmentData(
+                                    minValue = 0.0,
+                                    maxValue = 5.5,
+                                    color = ChartsSampleColors.colorBtcGreen,
+                                    contentDescription = "Test Bar Segment Yellow",
+                                    labelPosition = BarChartLabelPosition.TopCenter
+                                ),
+                            ),
+                            barThickness = BarThickness,
+                            barChartAlignment = BarChartAlignment.Center,
+                            stepPosition = 3f
+                        ),
+                        BarChartData(
+                            type = BarChartType.Grouped,
+                            orientation = BarChartOrientation.Vertical,
+                            appearance = BarChartAppearance.Squared,
+                            segments = persistentListOf(
+                                BarChartSegmentData(
+                                    minValue = 0.0,
+                                    maxValue = 3.0,
+                                    color = ChartsSampleColors.colorBtcOrange,
+                                    contentDescription = "Test Bar Segment Magenta",
+                                    labelPosition = BarChartLabelPosition.TopCenter
+                                ),
+                                BarChartSegmentData(
+                                    minValue = 0.0,
+                                    maxValue = 6.0,
+                                    color = ChartsSampleColors.colorTurquoise60,
+                                    contentDescription = "Test Bar Segment Yellow",
+                                    labelPosition = BarChartLabelPosition.TopCenter
+                                ),
+                                BarChartSegmentData(
+                                    minValue = 0.0,
+                                    maxValue = 5.0,
+                                    color = ChartsSampleColors.colorBtcGreen,
+                                    contentDescription = "Test Bar Segment Yellow",
+                                    labelPosition = BarChartLabelPosition.TopCenter
+                                ),
+                            ),
+                            barThickness = BarThickness,
+                            barChartAlignment = BarChartAlignment.Center,
+                            stepPosition = 4f
+                        ),
+                        BarChartData(
+                            type = BarChartType.Grouped,
+                            orientation = BarChartOrientation.Vertical,
+                            appearance = BarChartAppearance.Squared,
+                            segments = persistentListOf(
+                                BarChartSegmentData(
+                                    minValue = 0.0,
+                                    maxValue = 4.0,
+                                    color = ChartsSampleColors.colorBtcOrange,
+                                    contentDescription = "Test Bar Segment Magenta",
+                                    labelPosition = BarChartLabelPosition.TopCenter
+                                ),
+                                BarChartSegmentData(
+                                    minValue = 0.0,
+                                    maxValue = 7.0,
+                                    color = ChartsSampleColors.colorTurquoise60,
+                                    contentDescription = "Test Bar Segment Yellow",
+                                    labelPosition = BarChartLabelPosition.TopCenter
+                                ),
+                                BarChartSegmentData(
+                                    minValue = 0.0,
+                                    maxValue = 2.0,
+                                    color = ChartsSampleColors.colorBtcGreen,
+                                    contentDescription = "Test Bar Segment Yellow",
+                                    labelPosition = BarChartLabelPosition.TopCenter
+                                ),
+                            ),
+                            barThickness = BarThickness,
+                            barChartAlignment = BarChartAlignment.Center,
+                            stepPosition = 5f
+                        ),
+                    ),
+                    xAxisData = HistogramHorizontalSteps,
+                    yAxisData = HistogramVerticalSteps,
+                    xAxisStepSize = xUnitSize,
+                    yAxisStepSize = yUnitSize,
+                    horizontalScroll = horizontalScroll,
+                    verticalScroll = verticalScroll,
+                    zoom = zoom,
                 )
             }
         }
@@ -1133,9 +1456,30 @@ private val Steps = AxisBuilder()
     .addNode(10f, "10")
        .build()
 
+private val StepsFromZero = AxisBuilder()
+    .setDefaultStepStyle(
+        AxisStepStyle.solid(
+            strokeColor = Color.LightGray,
+            strokeWidth = 1.dp,
+        )
+    )
+    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = Color.LightGray))
+    .addNode(0f, "0")
+    .addNode(1f, "1")
+    .addNode(2f, "2")
+    .addNode(3f, "3")
+    .addNode(4f, "4")
+    .addNode(5f, "5")
+    .addNode(6f, "6")
+    .addNode(7f, "7")
+    .addNode(8f, "8")
+    .addNode(9f, "9")
+    .addNode(10f, "10")
+    .build()
+
 private val HorizontalSteps = AxisBuilder()
     .setDefaultStepStyle(null)
-    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = Color.LightGray))
+    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = Color.LightGray.copy(alpha = 0.2f)))
     .addNode(-1f, "-1")
     .addNode(0f, "0")
     .addNode(1f, "1")
@@ -1149,3 +1493,76 @@ private val HorizontalSteps = AxisBuilder()
     .addNode(9f, "9")
     .addNode(10f, "10")
     .build()
+
+private val HistogramHorizontalSteps = AxisBuilder()
+    .setDefaultStepStyle(null)
+    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = Color.LightGray.copy(alpha = 0.2f)))
+    .addNode(-1f, "")
+    .addNode(0f, "Jan")
+    .addNode(1f, "Feb")
+    .addNode(2f, "Mar")
+    .addNode(3f, "Apr")
+    .addNode(4f, "May")
+    .addNode(5f, "Jun")
+    .addNode(6f, "Jul")
+    .addNode(7f, "Aug")
+    .addNode(8f, "Sep")
+    .addNode(9f, "Oct")
+    .addNode(10f, "Nov")
+    .addNode(11f, "Dec")
+    .build()
+
+private val HistogramVerticalSteps = AxisBuilder()
+    .setDefaultStepStyle(
+        AxisStepStyle.solid(
+            strokeColor = Color.LightGray.copy(alpha = 0.3f),
+            strokeWidth = 1.dp,
+        )
+    )
+    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = Color.LightGray))
+    .addNode(0f, "0")
+    .addNode(1f, "1000")
+    .addNode(2f, "2000")
+    .addNode(3f, "3000")
+    .addNode(4f, "4000")
+    .addNode(5f, "5000")
+    .addNode(6f, "6000")
+    .addNode(7f, "7000")
+    .addNode(8f, "8000")
+    .addNode(9f, "9000")
+    .addNode(10f, "10000")
+    .build()
+
+private val GroupedVerticalSteps = AxisBuilder()
+    .setDefaultStepStyle(
+        AxisStepStyle.solid(
+            strokeColor = Color.LightGray.copy(alpha = 0.3f),
+            strokeWidth = 1.dp,
+        )
+    )
+    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = Color.LightGray))
+    .addNode(0f, "0")
+    .addNode(2f, "2000")
+    .addNode(4f, "4000")
+    .addNode(6f, "6000")
+    .addNode(8f, "8000")
+    .addNode(10f, "10000")
+    .build()
+
+private val HistogramPoints = listOf(
+    Offset(0f, 4f),
+    Offset(1f, 3f),
+    Offset(2f, 4f),
+    Offset(3f, 5f),
+    Offset(4f, 6f),
+    Offset(5f, 5f),
+    Offset(6f, 3f),
+    Offset(7f, 4f),
+    Offset(8f, 5f),
+    Offset(9f, 7f),
+    Offset(10f, 8f),
+    Offset(11f, 9f),
+    )
+
+private const val HistogramHeightDp = 250
+private const val HistogramWidthDp = 450

@@ -20,9 +20,9 @@ val sampleLineChartData1 = listOf(
 val btcPoints = getLineChartData(
     fromX = 0f,
     toX = 8f,
-    minY = 104000f,
-    maxY = 108500f,
-    steps = 30
+    minY = 104500f,
+    maxY = 106500f,
+    steps = 20
 )
 
 val raisingLineChartData1 = listOf(

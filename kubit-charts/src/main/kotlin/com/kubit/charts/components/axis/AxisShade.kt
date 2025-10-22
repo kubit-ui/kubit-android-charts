@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
+import org.jetbrains.annotations.ApiStatus.Experimental
 
 /**
  * Component to draw a shade region for an axis.
@@ -25,6 +26,7 @@ import androidx.compose.ui.platform.LocalDensity
  *
  * @sample com.kubit.charts.samples.components.axis.MultipleAxisPreviewWithAxisShade
  */
+@Experimental
 @Composable
 fun AxisShade(
     fromX: Float,

@@ -35,6 +35,7 @@ import com.kubit.charts.components.chart.plotchart.model.PlotChartData
 import com.kubit.charts.components.chart.plotchart.model.PlotCustomChartData
 import com.kubit.charts.components.chart.plotchart.model.PlotShapeChartData
 import kotlinx.collections.immutable.PersistentList
+import org.jetbrains.annotations.ApiStatus.Experimental
 
 /**
  * Displays a plot chart using the provided axis data, step sizes, label size, and optional modifiers.
@@ -71,6 +72,7 @@ import kotlinx.collections.immutable.PersistentList
  * @param zoom Zoom level for the chart. Default is 1f (no zoom).
  * @param backgroundData Optional background data, including image and dimensions for the chart.
  */
+@Experimental
 @SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
 fun PlotChart(
