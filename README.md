@@ -1,3 +1,5 @@
+<img src="assets/playstore/banner.png" alt="Banner">
+
 # Kubit Charts
 
 [![Visit the website at kubit-lab.com/](https://img.shields.io/badge/visit-website-red.svg?logo=firefox)](https://kubit-lab.com/)
