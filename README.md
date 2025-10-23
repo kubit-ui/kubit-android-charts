@@ -46,7 +46,4 @@ implementation("com.kubit-lab:charts-samples:$lastVersion")
 ## Storybook
 Check the storybook app to see the different charts on an emulator or a real device
 
-| Home | Charts | Customization | Interactivity |
-|:---:|:---:|:---:|:---:|
-| ![Storybook app](assets/playstore/1.1.png) | ![Storybook app](assets/playstore/2.2.png) | ![Storybook app](assets/playstore/3.3.png) | ![Storybook app](assets/playstore/4.4.png) |
-
+| <img src="assets/playstore/1.1.png" width="220"/> | <img src="assets/playstore/2.2.png" width="220"/> | <img src="assets/playstore/3.3.png" width="220"/> | <img src="assets/playstore/4.4.png" width="220"/> |
