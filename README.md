@@ -1,5 +1,6 @@
-# Kubit Charts
+<img src="assets/playstore/banner.png" alt="Banner">
 
+# Kubit Charts
 [![Visit the website at kubit-lab.com/](https://img.shields.io/badge/visit-website-red.svg?logo=firefox)](https://kubit-lab.com/)
 [![Maven Central Version](https://img.shields.io/maven-central/v/com.kubit-lab/charts?color=32cd32)](https://central.sonatype.com/artifact/com.kubit-lab/charts)
 [![Kotlin version](https://img.shields.io/badge/Kotlin-2.2.21-yellow)]([https://kubit-lab.com/](https://kotlinlang.org/))
