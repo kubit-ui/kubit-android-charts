@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId = "com.kubit.charts.storybook.app"
-        versionCode = 2
+        versionCode = 3
         versionName = "0.1.0"
     }
 
