@@ -33,6 +33,46 @@ Optionally, add the samples package for examples and demos:
 implementation("com.kubit-lab:charts-samples:$lastVersion")
 ```
 
+
+### Quick Example
+
+Here's a simple LineChart to get you started:
+
+```kotlin
+@Preview
+@Composable
+fun SimpleLineChart() {
+    val points = listOf(
+        Offset(0f, 10f),
+        Offset(1f, 20f),
+        Offset(2f, 15f),
+        Offset(3f, 30f),
+        Offset(4f, 25f)
+    )
+
+    LineChart(
+        modifier = Modifier.height(200.dp),
+        lines = listOf(
+            lineBuilder {
+                addPoints(points) { index ->
+                    IntersectionPoint(
+                        color = Color(0xFF9C27B0),
+                        radius = 4.dp
+                    )
+                }
+                setLineStyle(
+                    LineStyle(
+                        lineType = LineType.SmoothCurve(dashed = false),
+                        color = Color(0xFFDA0347),
+                        width = 3f
+                    )
+                )
+            }
+        ).toImmutableList()
+    )
+}
+```
+
 ## ✨ Features
 
 | Chart Type | Key Features | Status |
