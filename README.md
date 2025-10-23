@@ -1,4 +1,4 @@
-<img src="assets/playstore/banner.png" alt="Banner">
+<img src="assets/playstore/banner2.png" alt="Banner">
 
 # Kubit Charts
 
@@ -7,40 +7,57 @@
 [![Kotlin version](https://img.shields.io/badge/Kotlin-2.2.21-yellow)]([https://kubit-lab.com/](https://kotlinlang.org/))
 [![Compose version](https://img.shields.io/badge/Compose_BOM-2025.09.00-green)]([(https://developer.android.com/compose))
 
-[![Download](assets/playstore/badge.svg)](https://central.sonatype.com/artifact/com.kubit-lab/charts)
+[![Download](assets/playstore/badge.svg)](https://play.google.com/store/apps/details?id=com.kubit.charts.storybook.app)
 
 ## ✨ Overview
 
 Kubit Charts is a modern, accessible chart library for Android applications built with Jetpack Compose. Designed with accessibility as a core principle, it follows WCAG (Web Content Accessibility Guidelines) standards to ensure inclusive design for all users.
 
-> 💡 **Cross-platform**: Kubit Charts is also available for [Web](https://kubit-lab.com/) and [iOS](https://kubit-lab.com/) platforms, enabling consistent chart experiences across all your applications.
+> 💡 **Cross-platform**: Kubit Charts is also available for [Web](https://github.com/kubit-ui/kubit-react-charts) and [iOS](https://github.com/kubit-ui/kubit-ios-charts) platforms, enabling consistent chart experiences across all your applications.
 
 ## 🚀 Quick Start
 
-### Installation
+### Library Installation
 
-Add these dependencies to your project:
+Add the core library to your project:
 
 ```gradle
-// Library
 implementation("com.kubit-lab:charts:$lastVersion")
+```
 
-// Samples (optional)
+### Samples Installation
+
+Optionally, add the samples package for examples and demos:
+
+```gradle
 implementation("com.kubit-lab:charts-samples:$lastVersion")
 ```
 
-## 📊 Chart Types
+## ✨ Features
 
-| Chart Type | Status |
-|------------|---|
-| 📈 **Line Charts** | ✅ |
-| 📊 **Bar Charts** | ✅ |
-| 🥧 **Pie Charts** | ✅ |
-| 🎯 **Plot Charts** | ✅ |
-| 🎚️ **Axis Components** | ✅ |
-| 🔍 **Zoom Area** | ✅ |
-| 🏷️ **Legend** | ✅ |
-| 📱 **Chart Scaffold** | ✅ |
+| Chart Type | Key Features | Status |
+|------------|--------------|--------|
+| 📈 **Line Charts** | Multiple lines, shadows, animations | ✅ |
+| 📊 **Bar Charts** | Horizontal, stacked, grouped | ✅ |
+| 🥧 **Pie Charts** | Custom labels, borders, rotation | ✅ |
+| 🎯 **Plot Charts** | Interactive points, custom markers | ✅ |
+| 🎚️ **Axis Components** | Multiple orientations, styling | ✅ |
+| 🔍 **Zoom Area** | Pinch-to-zoom, pan gestures | ✅ |
+| 🏷️ **Legend** | Positioning, custom styling | ✅ |
+| 📱 **Chart Scaffold** | Scroll, zoom, responsive layout | ✅ |
+
+## 🔄 Development Status
+
+This library is currently in `experimental version` and under active development. More charts, features, and improvements are continuously being added.
+
+### 🛣️ Roadmap
+
+| Feature | Description                                  | Status |
+|---------|----------------------------------------------|--------|
+| 📊 **Enhanced Storybook** | Improved UI/UX with better samples and documentation | 🚧 In Progress |
+| 🌐 **Kotlin Multiplatform** | Full KMP support for iOS, Web, and Desktop   | 📅 Planned |
+| 📈 **New Chart Types** | Radar, Funnel, Heatmap charts...             | 📅 Planned |
+| 🎨 **Animations** | Smooth transitions and animated data updates | 📅 Planned |
 
 ## 📱 Live Demo
 
@@ -49,7 +66,6 @@ Explore all chart types in our interactive Storybook app:
 | Basic Examples | Interactive Features | Chart Variety | Advanced Styling |
 |----------------|---------------------|---------------|------------------|
 | <img src="assets/playstore/1.1.png" width="200"/> | <img src="assets/playstore/2.2.png" width="200"/> | <img src="assets/playstore/3.3.png" width="200"/> | <img src="assets/playstore/4.4.png" width="200"/> |
-| Core chart implementations | Zoom & scroll interactions | Line, bar & pie charts | Custom themes & styling |
 
 ## ♿ Accessibility First
 
@@ -69,10 +85,12 @@ For comprehensive guides, examples, and detailed API documentation:
 
 👉 **[Complete Documentation](README_EXTENDED_DOC.md)**
 
-## 🔄 Development Status
 
-This library is currently in **alpha version** and under active development. More charts, features, and improvements are continuously being added.
+## 🙏 Acknowledgments
+
+We extend our heartfelt gratitude to all the developers and contributors who have made Kubit Charts possible. Your dedication, feedback, and contributions continue to drive innovation and make this library better for the entire community. Thank you for being part of the Kubit ecosystem!
 
 ---
 
-Built with ❤️ using Jetpack Compose
+*Built with ❤️ using Jetpack Compose*
+
