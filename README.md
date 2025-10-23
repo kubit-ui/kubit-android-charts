@@ -12,14 +12,18 @@
 Kubit Charts is a library that provides a set of customizable and easy-to-use charts for Android applications.
 It is built using Jetpack Compose and currently supports:
 
-- Axis
-- Line chart
-- Bar chart
-- Plot chart
-- Pie chart
-- Zoom area chart
-- Chart legend
-- Chart scaffold with scroll and zoom support
+### 📊 Supported Chart Types
+
+| Type | Description | Status |
+|------|-------------|--------|
+| 📈 **Line Charts** | Simple and multiple line charts with shadows | ✅ Available |
+| 📊 **Bar Charts** | Horizontal, stacked and grouped bars | ✅ Available |
+| 🥧 **Pie Charts** | Circular charts with customizable labels | ✅ Available |
+| 🎯 **Plot Charts** | Scatter plots and point charts | ✅ Available |
+| 🎚️ **Axis** | Configurable axes with multiple options | ✅ Available |
+| 🔍 **Zoom Area** | Interactive zoom areas | ✅ Available |
+| 🏷️ **Chart Legend** | Customizable legends | ✅ Available |
+| 📱 **Chart Scaffold** | Container with scroll and zoom support | ✅ Available |
 
 This library is an alpha version and is still under development. More charts and features will be added in future releases.
 
@@ -42,44 +46,10 @@ implementation("com.kubit-lab:charts-samples:$lastVersion")
 ## Storybook
 Check the storybook app to see the different charts on an emulator or a real device
 
-![Storybook app](assets/storybook/storybook_scaffold.png)
-
-## Gallery
-
-### Chart scaffold
-
-<img src="assets/scaffold/scaffold_1.png" width="30%" height="30%" alt="ChartScaffold sample">
-<img src="assets/scaffold/scaffold_2.png" width="30%" height="30%" alt="ChartScaffold sample">
-
-### Axes
-<img src="assets/axis/axis_multiple.png" width="30%" height="30%" alt="Multiple axes">
-<img src="assets/axis/axis_horizontal.png" width="30%" height="30%" alt="Horizontal axis">
-<img src="assets/axis/axis_vertical.png" width="30%" height="30%" alt="Horizontal axis">
-<img src="assets/axis/axis_shade.png" width="30%" height="30%" alt="Horizontal axis">
-
-### Line Chart
-<img src="assets/linechart/linechart_simple.png" width="30%" height="30%" alt="LineChart sample">
-<img src="assets/linechart/linechart_shadow.png" width="30%" height="30%" alt="LineChart sample">
-<img src="assets/linechart/linechart_dotted_shadow.png" width="30%" height="30%" alt="LineChart sample">
-<img src="assets/linechart/linechart_multiline.png" width="30%" height="30%" alt="LineChart sample">
-<img src="assets/linechart/linechart_multiline_shadow.png" width="30%" height="30%" alt="LineChart sample">
-
-### Pie Chart
-<img src="assets/piechart/piechart_basic.png" width="30%" height="30%" alt="PieChart sample">
-<img src="assets/piechart/piechart_labels.png" width="30%" height="30%" alt="PieChart sample">
-<img src="assets/piechart/piechart_labels_rotation.png" width="30%" height="30%" alt="PieChart sample">
-<img src="assets/piechart/piechart_radius_border.png" width="30%" height="30%" alt="PieChart sample">
-<img src="assets/piechart/piechart_semi_label_border.png" width="30%" height="30%" alt="PieChart sample">
-
-### Bar Chart
-<img src="assets/barchart/barchart_single_horizontal.png" width="30%" height="30%" alt="BarChart sample">
-<img src="assets/barchart/barchart_stacked_horizontal.png" width="30%" height="30%" alt="BarChart sample">
-<img src="assets/barchart/barchart_grouped_horizontal.png" width="30%" height="30%" alt="BarChart sample">
-<img src="assets/barchart/barchart_multiple.png" width="30%" height="30%" alt="BarChart sample">
-<img src="assets/barchart/barchart_linechart.png" width="30%" height="30%" alt="BarChart sample">
-
-### Plot Chart
-<img src="assets/plotchart/plotchart_world.png" width="30%" height="30%" alt="PlotChart sample">
+![Storybook app](assets/playstore/1.1.png)
+![Storybook app](assets/playstore/2.2.png)
+![Storybook app](assets/playstore/3.3.png)
+![Storybook app](assets/playstore/4.4.png)
 
 ### Zoom Area Chart
 <img src="assets/zoom/zoomarea_basic.png" width="30%" height="30%" alt="Zoom area chart sample">
