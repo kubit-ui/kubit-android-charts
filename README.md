@@ -46,10 +46,7 @@ implementation("com.kubit-lab:charts-samples:$lastVersion")
 ## Storybook
 Check the storybook app to see the different charts on an emulator or a real device
 
-![Storybook app](assets/playstore/1.1.png)
-![Storybook app](assets/playstore/2.2.png)
-![Storybook app](assets/playstore/3.3.png)
-![Storybook app](assets/playstore/4.4.png)
+| Home | Charts | Customization | Interactivity |
+|:---:|:---:|:---:|:---:|
+| ![Storybook app](assets/playstore/1.1.png) | ![Storybook app](assets/playstore/2.2.png) | ![Storybook app](assets/playstore/3.3.png) | ![Storybook app](assets/playstore/4.4.png) |
 
-### Zoom Area Chart
-<img src="assets/zoom/zoomarea_basic.png" width="30%" height="30%" alt="Zoom area chart sample">
