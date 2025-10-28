@@ -18,6 +18,7 @@ Kubit Charts is a modern, accessible chart library for Android applications buil
 ## 🚀 Quick Start
 
 ### Library Installation
+[![Maven Central Version](https://img.shields.io/maven-central/v/com.kubit-lab/charts?color=32cd32)](https://central.sonatype.com/artifact/com.kubit-lab/charts)
 
 Add the core library to your project:
 
