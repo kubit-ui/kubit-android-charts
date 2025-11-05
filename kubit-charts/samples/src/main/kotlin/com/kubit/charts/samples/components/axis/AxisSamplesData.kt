@@ -1,19 +1,27 @@
 package com.kubit.charts.samples.components.axis
 
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.kubit.charts.components.axis.AxisLabelStyleDefaults
 import com.kubit.charts.components.axis.AxisStepStyleDefaults
 import com.kubit.charts.components.axis.model.AxisBuilder
 import com.kubit.charts.components.axis.model.AxisStepStyle
+import com.kubit.charts.samples.components.utils.ChartsSampleColors
 
-val sampleHorizontalAxisLight = AxisBuilder()
-    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = Color.LightGray))
-    .setDefaultStepStyle(AxisStepStyle.dashed(strokeWidth = 1.dp, strokeColor = Color.LightGray.copy(alpha = 0.5f), dashLength = 5.dp, gapLength = 5.dp, phase = 0.dp))
+val sampleHorizontalAxis = AxisBuilder()
+    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = ChartsSampleColors.black))
+    .setDefaultStepStyle(
+        AxisStepStyle.dashed(
+            strokeWidth = 1.dp,
+            strokeColor = ChartsSampleColors.darkGray.copy(alpha = 0.5f),
+            dashLength = 5.dp,
+            gapLength = 5.dp,
+            phase = 0.dp
+        )
+    )
     .addNode(-6f, "-6")
     .addNode(-4f, "-4")
     .addNode(-2f, "-2")
-    .addNode(0f, "0", style = AxisStepStyle.solid(strokeWidth = 1.dp, strokeColor = Color.White))
+    .addNode(0f, "0", style = AxisStepStyle.solid(strokeWidth = 1.dp, strokeColor = ChartsSampleColors.black))
     .addNode(2f, "2")
     .addNode(4f, "4")
     .addNode(6f, "6")
@@ -23,41 +31,12 @@ val sampleHorizontalAxisLight = AxisBuilder()
     .addNode(14f, "14")
     .build()
 
-val sampleHorizontalAxisDark = AxisBuilder()
-    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = Color.DarkGray))
-    .setDefaultStepStyle(AxisStepStyle.dashed(strokeWidth = 1.dp, strokeColor = Color.DarkGray.copy(alpha = 0.5f), dashLength = 5.dp, gapLength = 5.dp, phase = 0.dp))
-    .addNode(-6f, "-6")
-    .addNode(-4f, "-4")
-    .addNode(-2f, "-2")
-    .addNode(0f, "0", style = AxisStepStyle.solid(strokeWidth = 1.dp, strokeColor = Color.DarkGray))
-    .addNode(2f, "2")
-    .addNode(4f, "4")
-    .addNode(6f, "6")
-    .addNode(8f, "8")
-    .addNode(10f, "10")
-    .addNode(12f, "12")
-    .addNode(14f, "14")
-    .build()
-
-val sampleVerticalAxisLight = AxisBuilder()
-    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = Color.LightGray.copy(alpha = 0.5f)))
+val sampleVerticalAxis = AxisBuilder()
+    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = ChartsSampleColors.darkGray.copy(alpha = 0.5f)))
     .setDefaultStepStyle(AxisStepStyleDefaults.dashed)
     .addNode(-4f, "-4")
     .addNode(-2f, "-2")
-    .addNode(0f, "0", style = AxisStepStyle.solid(strokeWidth = 1.dp, strokeColor = Color.White))
-    .addNode(2f, "2")
-    .addNode(4f, "4")
-    .addNode(6f, "6")
-    .addNode(8f, "8")
-    .addNode(10f, "10")
-    .build()
-
-val sampleVerticalAxisDark = AxisBuilder()
-    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = Color.DarkGray))
-    .setDefaultStepStyle(AxisStepStyleDefaults.dashed)
-    .addNode(-4f, "-4")
-    .addNode(-2f, "-2")
-    .addNode(0f, "0", style = AxisStepStyle.solid(strokeWidth = 1.dp, strokeColor = Color.Black))
+    .addNode(0f, "0", style = AxisStepStyle.solid(strokeWidth = 1.dp, strokeColor = ChartsSampleColors.black))
     .addNode(2f, "2")
     .addNode(4f, "4")
     .addNode(6f, "6")
@@ -66,33 +45,19 @@ val sampleVerticalAxisDark = AxisBuilder()
     .build()
 
 val sampleVerticalAxisLong = AxisBuilder()
-    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = Color.White))
-    .setDefaultStepStyle(AxisStepStyle.dashed(strokeWidth = 1.dp, strokeColor = Color.LightGray.copy(alpha = 0.5f), dashLength = 5.dp, gapLength = 5.dp, phase = 0.dp))
+    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = ChartsSampleColors.black))
+    .setDefaultStepStyle(
+        AxisStepStyle.dashed(
+            strokeWidth = 1.dp,
+            strokeColor = ChartsSampleColors.darkGray.copy(alpha = 0.5f),
+            dashLength = 5.dp,
+            gapLength = 5.dp,
+            phase = 0.dp
+        )
+    )
     .addNode(-4f, "-4")
     .addNode(-2f, "-2")
-    .addNode(0f, "0", style = AxisStepStyle.solid(strokeWidth = 1.dp, strokeColor = Color.White))
-    .addNode(2f, "2")
-    .addNode(4f, "4")
-    .addNode(6f, "6")
-    .addNode(8f, "8")
-    .addNode(10f, "10")
-    .addNode(12f, "12")
-    .addNode(14f, "14")
-    .addNode(16f, "16")
-    .addNode(18f, "18")
-    .addNode(20f, "20")
-    .addNode(22f, "22")
-    .addNode(24f, "24")
-    .addNode(26f, "26")
-    .addNode(28f, "28")
-    .build()
-
-val sampleVerticalAxisLongDark = AxisBuilder()
-    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = Color.DarkGray))
-    .setDefaultStepStyle(AxisStepStyle.dashed(strokeWidth = 1.dp, strokeColor = Color.DarkGray, dashLength = 5.dp, gapLength = 5.dp, phase = 0.dp))
-    .addNode(-4f, "-4")
-    .addNode(-2f, "-2")
-    .addNode(0f, "0", style = AxisStepStyle.solid(strokeWidth = 1.dp, strokeColor = Color.DarkGray))
+    .addNode(0f, "0", style = AxisStepStyle.solid(strokeWidth = 1.dp, strokeColor = ChartsSampleColors.black))
     .addNode(2f, "2")
     .addNode(4f, "4")
     .addNode(6f, "6")
@@ -110,16 +75,16 @@ val sampleVerticalAxisLongDark = AxisBuilder()
     .build()
 
 val sampleVerticalBTC = AxisBuilder()
-    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = Color.LightGray))
-    .setDefaultStepStyle(AxisStepStyle.solid(strokeWidth = 1.dp, strokeColor = Color.LightGray.copy(0.1f)))
+    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = ChartsSampleColors.darkGray))
+    .setDefaultStepStyle(AxisStepStyle.solid(strokeWidth = 1.dp, strokeColor = ChartsSampleColors.darkGray.copy(0.1f)))
     .addNodes(from = 104000f, to = 108500f, steps = 9, labels = { index, value ->
         val preLabel = value.toString().substring(0, value.toString().length - 2)
-        "${preLabel.substring(0,3)}.${preLabel.substring(3,6)}"
+        "${preLabel.substring(0, 3)}.${preLabel.substring(3, 6)}"
     })
     .build()
 
 val sampleHorizontalBTC = AxisBuilder()
-    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = Color.LightGray))
+    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = ChartsSampleColors.darkGray))
     .setDefaultStepStyle(null)
     .addNode(0f, "00:00")
     .addNode(4f, "04:00")

@@ -56,7 +56,7 @@ fun SingleHorizontalBarChartBottomLabel() {
                     minValue = 0.0,
                     maxValue = 3.0,
                     label = "BarChart",
-                    labelColor = Color.Black,
+                    labelColor = ChartsSampleColors.black,
                     color = ChartsSampleColors.colorPurple75,
                     contentDescription = "Test Bar Red",
                     labelPosition = BarChartLabelPosition.BottomCenter,
@@ -83,7 +83,7 @@ fun SingleHorizontalBarChartTopLabel() {
                     maxValue = 3.0,
                     label = "BarChart",
                     color = ChartsSampleColors.colorPurple75,
-                    labelColor = Color.Black,
+                    labelColor = ChartsSampleColors.black,
                     contentDescription = "Test Bar Red",
                     labelPosition = BarChartLabelPosition.TopCenter,
                     labelSpacing = 4.dp,
@@ -122,6 +122,7 @@ fun SingleVerticalBarChartBottomLabel() {
 @Composable
 fun SingleVerticalBarChartTopLabel() {
     BarChart(
+        modifier = Modifier.width(25.dp),
         data = BarChartData(
             type = BarChartType.Single,
             orientation = BarChartOrientation.Vertical,
@@ -138,7 +139,6 @@ fun SingleVerticalBarChartTopLabel() {
             ),
             barChartAlignment = BarChartAlignment.Start
         ),
-        modifier = Modifier.width(25.dp)
     )
 }
 
@@ -183,7 +183,7 @@ fun SingleStackedHorizontalBarChart() {
                 ),
             ),
         ),
-        modifier = Modifier.height(30.dp)
+        modifier = Modifier.background(ChartsSampleColors.white).height(30.dp)
     )
 }
 
@@ -260,12 +260,12 @@ fun GroupedVerticalBarChart() {
     )
 }
 
-@Preview(heightDp = 400)
+@Preview(heightDp = 400, showBackground = true)
 @Composable
 @Suppress("LongMethod", "MagicNumber")
 fun BarChartShapeVariants() {
     ChartScaffold(
-        modifier = Modifier.background(Color.White),
+        modifier = Modifier.background(ChartsSampleColors.white),
         isPinchZoomEnabled = true,
         xAxisData = Steps,
         yAxisData = Steps,
@@ -392,7 +392,7 @@ fun BarChartShapeVariants() {
                                     minValue = 0.0,
                                     maxValue = 1.0,
                                     label = "Test",
-                                    color = Color.Blue,
+                                    color = ChartsSampleColors.colorColdBlue,
                                     contentDescription = "Test Bar Blue"
                                 ),
                                 BarChartSegmentData(
@@ -422,7 +422,7 @@ fun BarChartShapeVariants() {
                                     minValue = 0.0,
                                     maxValue = 1.0,
                                     label = "Test",
-                                    color = Color.Blue,
+                                    color = ChartsSampleColors.colorColdBlue,
                                     contentDescription = "Test Bar Blue"
                                 ),
                                 BarChartSegmentData(
@@ -500,7 +500,7 @@ fun BarChartShapeVariants() {
                                     minValue = 3.0,
                                     maxValue = 4.0,
                                     label = "Test",
-                                    color = Color.Blue,
+                                    color = ChartsSampleColors.colorColdBlue,
                                     contentDescription = "Test Bar Blue"
                                 ),
                                 BarChartSegmentData(
@@ -530,7 +530,7 @@ fun BarChartShapeVariants() {
                                     minValue = 3.0,
                                     maxValue = 4.0,
                                     label = "Test",
-                                    color = Color.Blue,
+                                    color = ChartsSampleColors.colorColdBlue,
                                     contentDescription = "Test Bar Blue"
                                 ),
                                 BarChartSegmentData(
@@ -560,7 +560,7 @@ fun BarChartShapeVariants() {
                                     minValue = 3.0,
                                     maxValue = 4.0,
                                     label = "Test",
-                                    color = Color.Blue,
+                                    color = ChartsSampleColors.colorColdBlue,
                                     contentDescription = "Test Bar Blue"
                                 ),
                                 BarChartSegmentData(
@@ -588,12 +588,12 @@ fun BarChartShapeVariants() {
     )
 }
 
-@Preview(heightDp = 400)
+@Preview(heightDp = 400, showBackground = true)
 @Composable
 @Suppress("LongMethod", "MagicNumber")
 fun BarChartTextVariants() {
     ChartScaffold(
-        modifier = Modifier.background(Color.White),
+        modifier = Modifier.background(ChartsSampleColors.white),
         isPinchZoomEnabled = true,
         xAxisData = Steps,
         yAxisData = Steps,
@@ -742,12 +742,12 @@ fun BarChartTextVariants() {
     )
 }
 
-@Preview(heightDp = 450)
+@Preview(heightDp = 450, showBackground = true)
 @Composable
 @Suppress("LongMethod", "MagicNumber")
 fun BarChartWithAxis() {
     ChartScaffold(
-        modifier = Modifier.background(Color.White),
+        modifier = Modifier.background(ChartsSampleColors.white),
         isPinchZoomEnabled = true,
         xAxisData = Steps,
         yAxisData = Steps,
@@ -829,13 +829,13 @@ fun BarChartWithAxis() {
     )
 }
 
-@Preview(heightDp = 350)
+@Preview(heightDp = 350, showBackground = true)
 @Composable
 @Suppress("LongMethod", "MagicNumber")
 fun BarChartWithLineChartInAxis() {
 
     ChartScaffold(
-        modifier = Modifier.background(Color.DarkGray),
+        modifier = Modifier.background(ChartsSampleColors.white),
         isPinchZoomEnabled = true,
         xAxisData = Steps,
         yAxisData = Steps,
@@ -955,22 +955,22 @@ fun BarChartWithLineChartInAxis() {
                                     Offset(4f, 4f),
                                     Offset(8f, 8f),
                                 )
-                            ) { IntersectionPoint(color = ChartsSampleColors.colorBtcOrange) }
-                                setSelectionHighlightPoint(
-                                    SelectionHighlightPoint()
-                                )
-                                setSelectionHighlightPopUp(
-                                    SelectionHighlightPopUp()
-                                )
+                            ) { IntersectionPoint(color = ChartsSampleColors.colorOrange) }
+                            setSelectionHighlightPoint(
+                                SelectionHighlightPoint()
+                            )
+                            setSelectionHighlightPopUp(
+                                SelectionHighlightPopUp()
+                            )
                             setLineStyle(
                                 LineStyle(
-                                    color = ChartsSampleColors.colorBtcOrange,
+                                    color = ChartsSampleColors.colorOrange,
                                     width = 4f
                                 )
                             )
                             setShadowUnderLine(
                                 ShadowUnderLine(
-                                    color = ChartsSampleColors.colorBtcOrange.copy(alpha = 0.1f),
+                                    color = ChartsSampleColors.colorOrange.copy(alpha = 0.1f),
                                 )
                             )
                         }
@@ -992,7 +992,7 @@ fun BarChartWithLineChartInAxis() {
     )
 }
 
-@Preview(heightDp = HistogramHeightDp, widthDp = HistogramWidthDp)
+@Preview(heightDp = HistogramHeightDp, widthDp = HistogramWidthDp, showBackground = true)
 @Composable
 @Suppress("LongMethod", "MagicNumber")
 fun BarChartHistogramWithAxis() {
@@ -1002,86 +1002,81 @@ fun BarChartHistogramWithAxis() {
     val barThickness = 25.dp
 
     ChartScaffold(
-            modifier =
-                Modifier.background(Color.DarkGray)
-                .padding(end = 10.dp),
-            isPinchZoomEnabled = true,
-            xAxisData = HistogramHorizontalSteps,
-            yAxisData = HistogramVerticalSteps,
-            xUnitSize = xUnitSize,
-            yUnitSize = yUnitSize,
-            axisPadding = AxisPadding(start = startPadding, bottom = LabelSize),
-            horizontalAxis = { horizontalScroll, zoom, padding ->
-                HorizontalAxisChart(
-                    data = HistogramHorizontalSteps,
-                    type = HorizontalAxisType.Bottom,
-                    fixedUnitSize = xUnitSize,
-                    labelHeight = LabelSize,
-                    padding = padding,
+        modifier = Modifier.background(ChartsSampleColors.white).padding(end = 10.dp),
+        isPinchZoomEnabled = true,
+        xAxisData = HistogramHorizontalSteps,
+        yAxisData = HistogramVerticalSteps,
+        xUnitSize = xUnitSize,
+        yUnitSize = yUnitSize,
+        axisPadding = AxisPadding(start = startPadding, bottom = LabelSize),
+        horizontalAxis = { horizontalScroll, zoom, padding ->
+            HorizontalAxisChart(
+                data = HistogramHorizontalSteps,
+                type = HorizontalAxisType.Bottom,
+                fixedUnitSize = xUnitSize,
+                labelHeight = LabelSize,
+                padding = padding,
+                horizontalScroll = horizontalScroll,
+                zoom = zoom
+            )
+        },
+        verticalAxis = { verticalScroll, zoom, padding ->
+            VerticalAxisChart(
+                data = HistogramVerticalSteps,
+                type = VerticalAxisType.Start,
+                labelWidth = startPadding,
+                fixedUnitSize = yUnitSize,
+                padding = padding,
+                verticalScroll = verticalScroll,
+                zoom = zoom
+            )
+        },
+        content = { contentData ->
+            with(contentData) {
+                BarChart(
+                    data =
+                        HistogramPoints.map {
+                            BarChartData(
+                                type = BarChartType.Single,
+                                orientation = BarChartOrientation.Vertical,
+                                appearance = BarChartAppearance.Squared,
+                                segments = listOf(
+                                    BarChartSegmentData(
+                                        minValue = 0.0,
+                                        maxValue = it.y.toDouble(),
+                                        label = "Test",
+                                        color = ChartsSampleColors.colorBlue50,
+                                        contentDescription = "Test Bar Red"
+                                    )
+                                ),
+                                barThickness = barThickness,
+                                stepPosition = it.x,
+                                barChartAlignment = BarChartAlignment.Center,
+                            )
+                        }.toPersistentList(),
+                    xAxisData = HistogramHorizontalSteps,
+                    yAxisData = HistogramVerticalSteps,
+                    xAxisStepSize = xUnitSize,
+                    yAxisStepSize = yUnitSize,
                     horizontalScroll = horizontalScroll,
-                    zoom = zoom
-                )
-            },
-            verticalAxis = { verticalScroll, zoom, padding ->
-                VerticalAxisChart(
-                    data = HistogramVerticalSteps,
-                    type = VerticalAxisType.Start,
-                    labelWidth = startPadding,
-                    fixedUnitSize = yUnitSize,
-                    padding = padding,
                     verticalScroll = verticalScroll,
-                    zoom = zoom
+                    zoom = zoom,
                 )
-            },
-            content = { contentData ->
-                with(contentData) {
-                    BarChart(
-                        data =
-                            HistogramPoints.map {
-                                BarChartData(
-                                    type = BarChartType.Single,
-                                    orientation = BarChartOrientation.Vertical,
-                                    appearance = BarChartAppearance.Squared,
-                                    segments = listOf(
-                                        BarChartSegmentData(
-                                            minValue = 0.0,
-                                            maxValue = it.y.toDouble(),
-                                            label = "Test",
-                                            color = ChartsSampleColors.colorTurquoise60,
-                                            contentDescription = "Test Bar Red"
-                                        )
-                                    ),
-                                    barThickness = barThickness,
-                                    stepPosition = it.x,
-                                    barChartAlignment = BarChartAlignment.Center,
-                                )
-                            }.toPersistentList(),
-                        xAxisData = HistogramHorizontalSteps,
-                        yAxisData = HistogramVerticalSteps,
-                        xAxisStepSize = xUnitSize,
-                        yAxisStepSize = yUnitSize,
-                        horizontalScroll = horizontalScroll,
-                        verticalScroll = verticalScroll,
-                        zoom = zoom,
-                    )
-                }
             }
-        )
+        }
+    )
 }
 
-@Preview(heightDp = HistogramHeightDp, widthDp = HistogramWidthDp)
+@Preview(heightDp = HistogramHeightDp, widthDp = HistogramWidthDp, showBackground = true)
 @Composable
 @Suppress("LongMethod", "MagicNumber")
 fun BarChartGroupedWithAxis() {
     val yUnitSize = 22.dp
     val xUnitSize = 60.dp
     val startPadding = 50.dp
-    val barThickness = 25.dp
 
     ChartScaffold(
-        modifier =
-            Modifier.background(Color.DarkGray)
-                .padding(end = 10.dp),
+        modifier = Modifier.background(ChartsSampleColors.white).padding(end = 10.dp),
         isPinchZoomEnabled = true,
         xAxisData = HistogramHorizontalSteps,
         yAxisData = HistogramVerticalSteps,
@@ -1122,7 +1117,7 @@ fun BarChartGroupedWithAxis() {
                                 BarChartSegmentData(
                                     minValue = 0.0,
                                     maxValue = 1.0,
-                                    color = ChartsSampleColors.colorBtcOrange,
+                                    color = ChartsSampleColors.colorOrange,
                                     contentDescription = "Test Bar Segment Magenta",
                                     labelPosition = BarChartLabelPosition.TopCenter
                                 ),
@@ -1152,7 +1147,7 @@ fun BarChartGroupedWithAxis() {
                                 BarChartSegmentData(
                                     minValue = 0.0,
                                     maxValue = 3.0,
-                                    color = ChartsSampleColors.colorBtcOrange,
+                                    color = ChartsSampleColors.colorOrange,
                                     contentDescription = "Test Bar Segment Magenta",
                                     labelPosition = BarChartLabelPosition.TopCenter
                                 ),
@@ -1183,7 +1178,7 @@ fun BarChartGroupedWithAxis() {
                                 BarChartSegmentData(
                                     minValue = 0.0,
                                     maxValue = 4.0,
-                                    color = ChartsSampleColors.colorBtcOrange,
+                                    color = ChartsSampleColors.colorOrange,
                                     contentDescription = "Test Bar Segment Magenta",
                                     labelPosition = BarChartLabelPosition.TopCenter
                                 ),
@@ -1214,7 +1209,7 @@ fun BarChartGroupedWithAxis() {
                                 BarChartSegmentData(
                                     minValue = 0.0,
                                     maxValue = 3.4,
-                                    color = ChartsSampleColors.colorBtcOrange,
+                                    color = ChartsSampleColors.colorOrange,
                                     contentDescription = "Test Bar Segment Magenta",
                                     labelPosition = BarChartLabelPosition.TopCenter
                                 ),
@@ -1245,7 +1240,7 @@ fun BarChartGroupedWithAxis() {
                                 BarChartSegmentData(
                                     minValue = 0.0,
                                     maxValue = 3.0,
-                                    color = ChartsSampleColors.colorBtcOrange,
+                                    color = ChartsSampleColors.colorOrange,
                                     contentDescription = "Test Bar Segment Magenta",
                                     labelPosition = BarChartLabelPosition.TopCenter
                                 ),
@@ -1276,7 +1271,7 @@ fun BarChartGroupedWithAxis() {
                                 BarChartSegmentData(
                                     minValue = 0.0,
                                     maxValue = 4.0,
-                                    color = ChartsSampleColors.colorBtcOrange,
+                                    color = ChartsSampleColors.colorOrange,
                                     contentDescription = "Test Bar Segment Magenta",
                                     labelPosition = BarChartLabelPosition.TopCenter
                                 ),
@@ -1329,7 +1324,7 @@ private fun getStackedBarData() = listOf(
         minValue = 2.0,
         maxValue = 3.0,
         label = "Test 2",
-        color = Color.Blue,
+        color = ChartsSampleColors.colorColdBlue,
         contentDescription = "Test Bar Segment Blue",
         labelPosition = BarChartLabelPosition.Center
     ),
@@ -1437,11 +1432,11 @@ private val BarPadding = 10.dp
 private val Steps = AxisBuilder()
     .setDefaultStepStyle(
         AxisStepStyle.solid(
-            strokeColor = Color.LightGray,
+            strokeColor = ChartsSampleColors.darkGray,
             strokeWidth = 1.dp,
         )
     )
-    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = Color.LightGray))
+    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = ChartsSampleColors.darkGray))
     .addNode(-1f, "-1")
     .addNode(0f, "0")
     .addNode(1f, "1")
@@ -1454,16 +1449,16 @@ private val Steps = AxisBuilder()
     .addNode(8f, "8")
     .addNode(9f, "9")
     .addNode(10f, "10")
-       .build()
+    .build()
 
 private val StepsFromZero = AxisBuilder()
     .setDefaultStepStyle(
         AxisStepStyle.solid(
-            strokeColor = Color.LightGray,
+            strokeColor = ChartsSampleColors.darkGray,
             strokeWidth = 1.dp,
         )
     )
-    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = Color.LightGray))
+    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = ChartsSampleColors.darkGray))
     .addNode(0f, "0")
     .addNode(1f, "1")
     .addNode(2f, "2")
@@ -1479,7 +1474,7 @@ private val StepsFromZero = AxisBuilder()
 
 private val HorizontalSteps = AxisBuilder()
     .setDefaultStepStyle(null)
-    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = Color.LightGray.copy(alpha = 0.2f)))
+    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = ChartsSampleColors.darkGray))
     .addNode(-1f, "-1")
     .addNode(0f, "0")
     .addNode(1f, "1")
@@ -1496,7 +1491,7 @@ private val HorizontalSteps = AxisBuilder()
 
 private val HistogramHorizontalSteps = AxisBuilder()
     .setDefaultStepStyle(null)
-    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = Color.LightGray.copy(alpha = 0.2f)))
+    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = ChartsSampleColors.darkGray))
     .addNode(-1f, "")
     .addNode(0f, "Jan")
     .addNode(1f, "Feb")
@@ -1515,11 +1510,11 @@ private val HistogramHorizontalSteps = AxisBuilder()
 private val HistogramVerticalSteps = AxisBuilder()
     .setDefaultStepStyle(
         AxisStepStyle.solid(
-            strokeColor = Color.LightGray.copy(alpha = 0.3f),
+            strokeColor = ChartsSampleColors.darkGray.copy(alpha = 0.3f),
             strokeWidth = 1.dp,
         )
     )
-    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = Color.LightGray))
+    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = ChartsSampleColors.darkGray))
     .addNode(0f, "0")
     .addNode(1f, "1000")
     .addNode(2f, "2000")
@@ -1536,11 +1531,11 @@ private val HistogramVerticalSteps = AxisBuilder()
 private val GroupedVerticalSteps = AxisBuilder()
     .setDefaultStepStyle(
         AxisStepStyle.solid(
-            strokeColor = Color.LightGray.copy(alpha = 0.3f),
+            strokeColor = ChartsSampleColors.darkGray.copy(alpha = 0.3f),
             strokeWidth = 1.dp,
         )
     )
-    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = Color.LightGray))
+    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = ChartsSampleColors.darkGray))
     .addNode(0f, "0")
     .addNode(2f, "2000")
     .addNode(4f, "4000")
@@ -1562,7 +1557,7 @@ private val HistogramPoints = listOf(
     Offset(9f, 7f),
     Offset(10f, 8f),
     Offset(11f, 9f),
-    )
+)
 
 private const val HistogramHeightDp = 250
 private const val HistogramWidthDp = 450

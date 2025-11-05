@@ -1,6 +1,24 @@
 <resources>
     <string name="app_name">kubit-charts</string>
 
+    <!-- Main Screen Strings -->
     <string name="main_title">Kubit Charts</string>
+    <string name="components_title">Components</string>
+    <string name="components_subtitle">Explore all chart components</string>
+    <string name="components_description">Discover the complete collection of chart components.</string>
+    <string name="samples_title">Samples</string>
+    <string name="samples_subtitle">Template examples &amp; demos</string>
+    <string name="samples_description">Ready-to-use chart templates and real-world implementation examples.</string>
+    <string name="powerful_chart_library">Powerful &amp; Beautiful Chart Library</string>
+    <string name="built_with_love">Built with ❤️ using </string>
+    <string name="jetpack_compose">Jetpack Compose</string>
+
+    <!-- GitHub Section -->
+    <string name="view_on_github">View on GitHub</string>
+    <string name="contribute_text">Contribute to the project</string>
+    <string name="github_description">Explore the source code and contribute to the project</string>
+    <string name="github_repository_url">https://github.com/kubit-ui/kubit-android-charts</string>
+
+    <!-- Legacy -->
     <string name="data_visualization">Data visualization</string>
 </resources>

@@ -23,13 +23,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kubit.charts.samples.R
+import com.kubit.charts.samples.components.utils.ChartsSampleColors
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -44,8 +44,8 @@ fun WeatherAppLayoutSample() {
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
-                        Color(SkyBlueColor),
-                        Color(LightBlueColor)
+                        ChartsSampleColors.SkyBlueColor,
+                        ChartsSampleColors.LightBlueColor
                     )
                 )
             )
@@ -80,7 +80,7 @@ fun WeatherAppLayoutSample() {
                     .height(ChartCardHeight.dp),
                 elevation = CardDefaults.cardElevation(defaultElevation = CardElevation.dp),
                 shape = RoundedCornerShape(CardCornerRadius.dp),
-                colors = CardDefaults.cardColors(containerColor = Color.White.copy(alpha = CardBackgroundAlpha))
+                colors = CardDefaults.cardColors(containerColor = ChartsSampleColors.white)
             ) {
                 Column(
                     modifier = Modifier.padding(CardInnerPadding.dp)
@@ -89,7 +89,7 @@ fun WeatherAppLayoutSample() {
                         text = ForecastTitle,
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Medium,
-                        color = Color.DarkGray,
+                        color = ChartsSampleColors.darkGray,
                         modifier = Modifier.padding(
                             horizontal = TitleHorizontalPadding.dp,
                             vertical = TitleVerticalPadding.dp
@@ -120,20 +120,20 @@ private fun WeatherHeader(
                     painter = painterResource(id = R.drawable.sunny_sun_weather_climate_forecast),
                     contentDescription = LocationIconDescription,
                     modifier = Modifier.size(LocationIconSize.dp),
-                    tint = Color.DarkGray
+                    tint = ChartsSampleColors.darkGray
                 )
                 Spacer(modifier = Modifier.width(ExtraSmallSpacing.dp))
                 Text(
                     text = location,
                     style = MaterialTheme.typography.headlineSmall,
                     fontWeight = FontWeight.Bold,
-                    color = Color.DarkGray
+                    color = ChartsSampleColors.darkGray
                 )
             }
             Text(
                 text = date,
                 style = MaterialTheme.typography.bodyMedium,
-                color = Color.DarkGray.copy(alpha = DateTextAlpha)
+                color = ChartsSampleColors.darkGray.copy(alpha = DateTextAlpha)
             )
         }
     }
@@ -156,24 +156,24 @@ private fun CurrentWeatherInfo(
                 text = temperature,
                 fontSize = TemperatureFontSize.sp,
                 fontWeight = FontWeight.Light,
-                color = Color.White
+                color = ChartsSampleColors.white
             )
             Text(
                 text = weatherCondition,
                 style = MaterialTheme.typography.bodyLarge,
-                color = Color.White.copy(alpha = WeatherConditionAlpha)
+                color = ChartsSampleColors.white.copy(alpha = WeatherConditionAlpha)
             )
             Row {
                 Text(
                     text = "${HighTempPrefix}$highTemp",
                     style = MaterialTheme.typography.bodyMedium,
-                    color = Color.White.copy(alpha = TemperatureRangeAlpha)
+                    color = ChartsSampleColors.white.copy(alpha = TemperatureRangeAlpha)
                 )
                 Spacer(modifier = Modifier.width(SmallSpacing.dp))
                 Text(
                     text = "${LowTempPrefix}$lowTemp",
                     style = MaterialTheme.typography.bodyMedium,
-                    color = Color.White.copy(alpha = TemperatureRangeAlpha)
+                    color = ChartsSampleColors.white.copy(alpha = TemperatureRangeAlpha)
                 )
             }
         }
@@ -207,10 +207,6 @@ private const val WeatherIconDescription = "Current weather condition"
 private const val HighTempPrefix = "High: "
 private const val LowTempPrefix = "Low: "
 
-// Color Constants
-private const val SkyBlueColor = 0xFF87CEEB
-private const val LightBlueColor = 0xFFE0F6FF
-
 // Size Constants
 private const val DefaultPadding = 16
 private const val SmallSpacing = 16
@@ -229,7 +225,6 @@ private const val PreviewHeight = 500
 private const val PreviewWidth = 400
 
 // Alpha Constants
-private const val CardBackgroundAlpha = 0.9f
 private const val DateTextAlpha = 0.7f
 private const val WeatherConditionAlpha = 0.9f
 private const val TemperatureRangeAlpha = 0.8f

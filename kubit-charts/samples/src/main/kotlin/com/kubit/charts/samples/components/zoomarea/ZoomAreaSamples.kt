@@ -68,7 +68,7 @@ fun ZoomAreaChartSample() {
             leftCustomAction = LeftActionDescription,
             rightCustomAction = RightActionDescription
         ),
-        opacityColor = Color.Red.copy(alpha = 0.2f),
+        opacityColor = ChartsSampleColors.colorRed30,
         onWidthChange = {},
         onHeightChange = {},
         onSelectionChange = { _, _ -> }
@@ -92,11 +92,11 @@ private fun Thumb() {
                 .size(34.dp)
                 .border(
                     width = 1.dp,
-                    color = Color(0xFF666666),
+                    color = ChartsSampleColors.darkGray,
                     shape = RoundedCornerShape(size = 34.dp)
                 )
                 .background(
-                    color = Color.White,
+                    color = ChartsSampleColors.white,
                     shape = RoundedCornerShape(size = 34.dp)
                 )
                 .padding(12.dp)
@@ -125,7 +125,7 @@ private fun ArrowLeft() {
             modifier = Modifier
                 .size(30.dp)
                 .background(
-                    color = Color.White,
+                    color = ChartsSampleColors.white,
                     shape = RoundedCornerShape(
                         topStart = 12.dp,
                         bottomStart = 12.dp,
@@ -135,7 +135,7 @@ private fun ArrowLeft() {
                 )
                 .border(
                     width = 1.dp,
-                    color = Color.Black,
+                    color = ChartsSampleColors.black,
                     shape = RoundedCornerShape(
                         topStart = 12.dp,
                         bottomStart = 12.dp,
@@ -148,7 +148,7 @@ private fun ArrowLeft() {
             Icon(
                 painter = painterResource(R.drawable.arrow_area),
                 contentDescription = "Arrow left icon",
-                tint = Color.Black,
+                tint = ChartsSampleColors.black,
                 modifier = Modifier
                     .size(24.dp)
                     .graphicsLayer {
@@ -174,7 +174,7 @@ private fun ArrowRight() {
             modifier = Modifier
                 .size(30.dp)
                 .background(
-                    color = Color.White,
+                    color = ChartsSampleColors.white,
                     shape = RoundedCornerShape(
                         topStart = 0.dp,
                         bottomStart = 0.dp,
@@ -184,7 +184,7 @@ private fun ArrowRight() {
                 )
                 .border(
                     width = 1.dp,
-                    color = Color.Black,
+                    color = ChartsSampleColors.black,
                     shape = RoundedCornerShape(
                         topStart = 0.dp,
                         bottomStart = 0.dp,
@@ -197,7 +197,7 @@ private fun ArrowRight() {
             Icon(
                 painter = painterResource(R.drawable.arrow_area),
                 contentDescription = "Arrow left icon",
-                tint = Color.Black,
+                tint = ChartsSampleColors.black,
                 modifier = Modifier.size(24.dp)
             )
         }

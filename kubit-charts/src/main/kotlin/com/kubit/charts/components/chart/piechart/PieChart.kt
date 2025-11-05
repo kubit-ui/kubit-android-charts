@@ -1,7 +1,6 @@
 package com.kubit.charts.components.chart.piechart
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -38,9 +37,16 @@ import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
+import com.kubit.charts.components.chart.piechart.PieChartDirection.Clockwise
+import com.kubit.charts.components.chart.piechart.PieChartDirection.CounterClockwise
+import com.kubit.charts.components.chart.piechart.PieChartHorizontalAlignment.Center
+import com.kubit.charts.components.chart.piechart.PieChartHorizontalAlignment.Left
+import com.kubit.charts.components.chart.piechart.PieChartHorizontalAlignment.Right
+import com.kubit.charts.components.chart.piechart.PieChartVerticalAlignment.Bottom
+import com.kubit.charts.components.chart.piechart.PieChartVerticalAlignment.Center
+import com.kubit.charts.components.chart.piechart.PieChartVerticalAlignment.Top
 import com.kubit.charts.components.chart.piechart.model.Pie
 import com.kubit.charts.components.chart.piechart.model.PieSectionData
-import org.jetbrains.annotations.ApiStatus.Experimental
 import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.atan2
@@ -48,6 +54,7 @@ import kotlin.math.cos
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.sin
+import org.jetbrains.annotations.ApiStatus.Experimental
 
 /**
  * Displays a pie chart based on the provided [Pie] data and configuration.
@@ -63,7 +70,6 @@ import kotlin.math.sin
  * PieChart(
  *     pie = pie,
  *     radius = 100.dp,
- *     backgroundColor = Color.White
  * )
  * ```
  * @param pie The data for the pie chart, containing sections and their styles.
@@ -75,7 +81,6 @@ import kotlin.math.sin
  * @param startAngle The starting angle for the pie chart sections.
  * @param endAngle The ending angle for the pie chart sections.
  * @param direction The direction in which the sections are drawn (clockwise or counter-clockwise).
- * @param backgroundColor Background color of the chart.
  * @param sectionsSpacing Spacing between sections. If [Dp.Hairline], no spacing is applied.
  * @param expandToFill If true, the chart expands to fill the available space.
  * @param contentDescription Optional content description for accessibility.
@@ -95,7 +100,6 @@ fun PieChart(
     startAngle: Float = 0f,
     endAngle: Float = 360f,
     direction: PieChartDirection = PieChartDirection.CounterClockwise,
-    backgroundColor: Color = Color.White,
     sectionsSpacing: Dp = Dp.Hairline,
     expandToFill: Boolean = false,
     contentDescription: String? = null,
@@ -111,6 +115,7 @@ fun PieChart(
 
     Box(
         modifier = modifier
+            .fillMaxSize()
             .clipToBounds()
             .semantics {
                 contentDescription?.let {
@@ -122,7 +127,6 @@ fun PieChart(
             modifier = Modifier
                 .align(Alignment.Center)
                 .fillMaxSize()
-                .background(backgroundColor)
                 .graphicsLayer {
                     compositingStrategy = CompositingStrategy.Offscreen
                 }
@@ -156,7 +160,7 @@ fun PieChart(
                         }
                     },
                 )
-            }
+            },
         )
 
         Box(modifier = Modifier.align(Alignment.Center)) {
@@ -481,7 +485,6 @@ private fun getSectorRect(startAngle: Float, endAngle: Float): Rect {
 private fun CanvasContainer(
     onDraw: DrawScope.() -> Unit,
     modifier: Modifier = Modifier,
-    containerBackgroundColor: Color = Color.White,
     layoutDirection: LayoutDirection? = null
 ) {
     val direction = layoutDirection ?: LocalLayoutDirection.current
@@ -494,8 +497,7 @@ private fun CanvasContainer(
                 modifier = Modifier
                     .align(Alignment.Center)
                     .fillMaxHeight()
-                    .fillMaxWidth()
-                    .background(containerBackgroundColor),
+                    .fillMaxWidth(),
                 onDraw = onDraw
             )
         }
