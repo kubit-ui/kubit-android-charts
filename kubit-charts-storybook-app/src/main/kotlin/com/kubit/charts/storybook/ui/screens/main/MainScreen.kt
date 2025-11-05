@@ -11,13 +11,18 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowForward
 import androidx.compose.material3.Card
@@ -99,30 +104,38 @@ private fun ModernMainContent(
         animationSpec = tween(800), label = ""
     )
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(paddingValues)
-            .padding(24.dp)
-            .alpha(animationProgress),
-        verticalArrangement = Arrangement.spacedBy(32.dp)
-    ) {
-        HeroSection(
-            animationProgress = animationProgress,
-            strings = strings
-        )
+    val scrollState = rememberScrollState()
+    val navigationBarsPadding = WindowInsets.navigationBars.asPaddingValues()
 
-        Spacer(modifier = Modifier.height(8.dp))
+    Column(modifier = modifier) {
+        Column(
+            modifier = Modifier
+                .verticalScroll(scrollState)
+                .fillMaxSize()
+                .padding(paddingValues)
+                .padding(24.dp)
+                .weight(1f)
+                .alpha(animationProgress),
+            verticalArrangement = Arrangement.spacedBy(24.dp)
+        ) {
+            HeroSection(
+                animationProgress = animationProgress,
+                strings = strings
+            )
+            Spacer(modifier = Modifier.height(4.dp))
 
-        MainCards(
-            onNavigationAction = onNavigationAction,
-            animationProgress = animationProgress,
-            strings = strings
-        )
-
-        Spacer(modifier = Modifier.weight(1f))
-
-        Footer(animationProgress, strings)
+            MainCards(
+                onNavigationAction = onNavigationAction,
+                animationProgress = animationProgress,
+                strings = strings
+            )
+        }
+        Box(
+            modifier = Modifier
+                .padding(navigationBarsPadding.calculateBottomPadding())
+        ) {
+            Footer()
+        }
     }
 }
 
@@ -357,14 +370,12 @@ private fun ModernCard(
 }
 
 @Composable
-private fun Footer(
-    animationProgress: Float,
-    strings: StringResources
-) {
+fun Footer() {
+    val strings = StringResourcesProvider.get()
+
     Box(
         modifier = Modifier
-            .fillMaxWidth()
-            .alpha(animationProgress),
+            .fillMaxWidth(),
         contentAlignment = Alignment.Center
     ) {
         Row(
