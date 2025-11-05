@@ -13,13 +13,14 @@ import com.kubit.charts.storybook.domain.model.Sample
 import com.kubit.charts.storybook.domain.usecase.GetSamplesUseCase
 import com.kubit.charts.storybook.ui.storybookcomponents.StorybookListScreen
 import com.kubit.charts.storybook.ui.storybookcomponents.StorybookScreen
+import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 fun SampleListScreen(
     onNavigationAction: (SampleListScreenAction) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val components = GetSamplesUseCase()
+    val components = GetSamplesUseCase().toImmutableList()
     var isVisible by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
