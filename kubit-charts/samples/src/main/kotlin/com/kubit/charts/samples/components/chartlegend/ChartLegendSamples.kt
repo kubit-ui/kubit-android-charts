@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kubit.charts.components.chartlegend.ChartLegendColorConfig
@@ -17,8 +16,9 @@ import com.kubit.charts.components.chartlegend.ChartLegendValueConfig
 import com.kubit.charts.components.chartlegend.VerticalChartLegend
 import com.kubit.charts.components.utils.StarShape
 import com.kubit.charts.components.utils.TriangleShape
+import com.kubit.charts.samples.components.utils.ChartsSampleColors
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun VerticalRightChartLegendSample() {
     VerticalChartLegend(
@@ -31,13 +31,13 @@ fun VerticalRightChartLegendSample() {
             value = "1.200.000.000"
         ),
         colorConfig = ChartLegendColorConfig(
-            color = Color.Blue
+            color = ChartsSampleColors.NeonFuchsia
         ),
         spacingConfig = ChartLegendSpacingConfig()
     )
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun VerticalLeftChartLegendSample() {
     VerticalChartLegend(
@@ -50,13 +50,13 @@ fun VerticalLeftChartLegendSample() {
             value = "1.200.000.000"
         ),
         colorConfig = ChartLegendColorConfig(
-            color = Color.Blue
+            color = ChartsSampleColors.NeonFuchsia
         ),
         spacingConfig = ChartLegendSpacingConfig()
     )
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun HorizontalLeftChartLegendSample() {
     HorizontalChartLegend(
@@ -70,13 +70,13 @@ fun HorizontalLeftChartLegendSample() {
             value = "1.200.000.000"
         ),
         colorConfig = ChartLegendColorConfig(
-            color = Color.Blue
+            color = ChartsSampleColors.NeonFuchsia
         ),
         spacingConfig = ChartLegendSpacingConfig()
     )
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun HorizontalLeftChartLegendAdaptToChartSample() {
     HorizontalChartLegend(
@@ -90,13 +90,13 @@ fun HorizontalLeftChartLegendAdaptToChartSample() {
             value = "1.200.000.000"
         ),
         colorConfig = ChartLegendColorConfig(
-            color = Color.Red
+            color = ChartsSampleColors.ElectricTeal
         ),
         spacingConfig = ChartLegendSpacingConfig()
     )
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun HorizontalRightChartLegendSample() {
     HorizontalChartLegend(
@@ -110,13 +110,13 @@ fun HorizontalRightChartLegendSample() {
             value = "1.200.000.000"
         ),
         colorConfig = ChartLegendColorConfig(
-            color = Color.Blue
+            color = ChartsSampleColors.NeonFuchsia
         ),
         spacingConfig = ChartLegendSpacingConfig()
     )
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun VerticalChartLegendNoColorSample() {
     VerticalChartLegend(
@@ -132,7 +132,7 @@ fun VerticalChartLegendNoColorSample() {
     )
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun VerticalChartLegendNoValueSample() {
     VerticalChartLegend(
@@ -142,7 +142,7 @@ fun VerticalChartLegendNoValueSample() {
         ),
         valueConfig = null,
         colorConfig = ChartLegendColorConfig(
-            color = Color.Blue
+            color = ChartsSampleColors.NeonFuchsia
         ),
         spacingConfig = ChartLegendSpacingConfig()
     )
@@ -161,10 +161,10 @@ fun MultipleChartLegendSample() {
             ),
             valueConfig = ChartLegendValueConfig(
                 value = "1.200.000.000",
-                fontColor = Color.Black
+                fontColor = ChartsSampleColors.black
             ),
             colorConfig = ChartLegendColorConfig(
-                color = Color.Blue
+                color = ChartsSampleColors.ElectricTeal
             ),
             spacingConfig = ChartLegendSpacingConfig()
         )
@@ -182,7 +182,7 @@ fun MultipleChartLegendSample() {
                 value = "1.200.000.000"
             ),
             colorConfig = ChartLegendColorConfig(
-                color = Color.Yellow
+                color = ChartsSampleColors.ibrantAmber
             ),
             spacingConfig = ChartLegendSpacingConfig()
         )
@@ -200,14 +200,14 @@ fun MultipleChartLegendSample() {
                 value = "1.200.000.000"
             ),
             colorConfig = ChartLegendColorConfig(
-                color = Color.Red
+                color = ChartsSampleColors.NeonFuchsia
             ),
             spacingConfig = ChartLegendSpacingConfig()
         )
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun MultipleShapeChartLegendSample() {
     Column {
@@ -222,7 +222,7 @@ fun MultipleShapeChartLegendSample() {
                 value = "1.200.000.000"
             ),
             colorConfig = ChartLegendColorConfig(
-                color = Color.Blue,
+                color = ChartsSampleColors.NeonFuchsia,
                 shape = StarShape(),
                 containerWidth = 10.dp,
                 containerHeight = 10.dp
@@ -243,7 +243,7 @@ fun MultipleShapeChartLegendSample() {
                 value = "1.200.000.000"
             ),
             colorConfig = ChartLegendColorConfig(
-                color = Color.Blue,
+                color = ChartsSampleColors.NeonFuchsia,
                 shape = TriangleShape(centered = false),
                 containerWidth = 10.dp,
                 containerHeight = 10.dp
@@ -264,7 +264,7 @@ fun MultipleShapeChartLegendSample() {
                 value = "1.200.000.000"
             ),
             colorConfig = ChartLegendColorConfig(
-                color = Color.Blue,
+                color = ChartsSampleColors.NeonFuchsia,
                 containerWidth = 10.dp,
                 containerHeight = 3.dp
             ),

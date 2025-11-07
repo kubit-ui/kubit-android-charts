@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,7 +22,7 @@ import androidx.compose.ui.unit.dp
 internal fun StorybookPreview(
     title: String?,
     modifier: Modifier = Modifier,
-    backgroundColor: Color = StorybookLightPreviewColor,
+    backgroundColor: Color = MaterialTheme.colorScheme.surfaceVariant,
     content: @Composable () -> Unit
 ) {
 
@@ -49,4 +50,3 @@ internal fun StorybookPreview(
 private val StorybookPreviewPadding: Dp = 16.dp
 private val StorybookPreviewInnerPadding: Dp = 16.dp
 private val StorybookPreviewShape: Dp = 12.dp
-private val StorybookLightPreviewColor: Color = Color(0xFFF3F3F3)

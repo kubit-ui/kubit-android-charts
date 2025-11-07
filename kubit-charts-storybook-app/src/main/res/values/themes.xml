@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="KubitThemeApp.NoActionBar" parent="Theme.AppCompat.DayNight.NoActionBar">
-        <!--
-        We must set windowTranslucentStatus attr to true to make the status bar visible in multiple
-        screen configurations because our system allows having multiple colors for the header and
-        if status bar were transparent, content status bar could not be visible.
-        -->
-        <item name="android:windowTranslucentStatus">true</item>
-        <!--
-        For Android API 28 or lower we must set windowTranslucentNavigation attr to true to make the
-        navigation bar visible in multiple screen configurations because our system allows having
-        multiple colors for content behind navigation bar and if navigation bar is transparent,
-        the content could not be visible.
-        -->
-        <item name="android:windowTranslucentNavigation">true</item>
+
     </style>
 
     <!--

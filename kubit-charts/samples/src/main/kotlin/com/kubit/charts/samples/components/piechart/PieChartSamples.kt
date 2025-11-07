@@ -22,7 +22,7 @@ fun PieChartBasicSample() {
         pie = PieChartTestDataOne,
         sectionsSpacing = 0.dp,
         onPointSelect = { pieSection, offset -> },
-        contentDescription = "This is a pie chart 360 degrees with no section spacing."
+        contentDescription = "This is a pie chart 360 degrees with no section spacing.",
     )
 }
 
@@ -107,7 +107,7 @@ fun PieChartSemiCircleWithSectionWidthSample(expandToFill: Boolean = false) {
         endAngle = 180f,
         onPointSelect = { pieSection, offset -> },
         expandToFill = expandToFill,
-        contentDescription = "This is a ring chart 180 degrees with section spacing."
+        contentDescription = "This is a ring chart 180 degrees with section spacing.",
     )
 }
 

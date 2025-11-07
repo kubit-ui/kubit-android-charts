@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Canvas
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.drawscope.CanvasDrawScope
 import androidx.compose.ui.graphics.painter.Painter
@@ -50,7 +49,7 @@ import kotlinx.collections.immutable.persistentListOf
 fun PlotChartSample() {
     ChartScaffold(
         modifier = Modifier
-            .background(Color.White)
+            .background(ChartsSampleColors.white)
             .clipToBounds(),
         isPinchZoomEnabled = true,
         xAxisData = Steps,
@@ -124,7 +123,7 @@ fun PlotChartWithBackgroundSample() {
 
     ChartScaffold(
         modifier = Modifier
-            .background(Color.White)
+            .background(ChartsSampleColors.white)
             .height(FixedUnitSize.times(StepsMapY.axisSteps.size))
             .clipToBounds(),
         isPinchZoomEnabled = true,
@@ -224,7 +223,8 @@ private fun getPlotList() = persistentListOf(
             Icon(
                 painter = painterResource(R.drawable.star),
                 contentDescription = "Point 4, Custom Icon",
-                modifier = Modifier.size(40.dp.times(zoom))
+                modifier = Modifier.size(40.dp.times(zoom)),
+                tint = ChartsSampleColors.darkGray
             )
         }
     ),

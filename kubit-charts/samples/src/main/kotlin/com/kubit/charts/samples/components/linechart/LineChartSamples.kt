@@ -720,7 +720,7 @@ fun LineChartMultiColorSample() {
                             setLineStyle(
                                 LineStyle(
                                     lineType = LineType.Straight(),
-                                    color = ChartsSampleColors.colorBtcOrange
+                                    color = ChartsSampleColors.colorOrange
                                 )
                             )
                             setSelectionHighlightPoint(
@@ -819,9 +819,9 @@ fun LineChartMultipleLinesSample() {
     val colorPaletteList =
         listOf(
             ChartsSampleColors.colorBtcGreen,
-            ChartsSampleColors.colorBtcOrange,
+            ChartsSampleColors.colorOrange,
             ChartsSampleColors.colorTurquoise60,
-            Color.DarkGray
+            ChartsSampleColors.darkGray
         )
     val pointsData =
         getLineChartData(
@@ -1000,7 +1000,7 @@ fun LineChartMultiLinesAreaTransparentSample() {
     val colorPaletteList =
         listOf(
             ChartsSampleColors.colorBtcGreen,
-            ChartsSampleColors.colorBtcOrange,
+            ChartsSampleColors.colorOrange,
             ChartsSampleColors.colorSky85
         )
 
@@ -1028,7 +1028,7 @@ fun LineChartMultiLinesAreaTransparentSample() {
                         color = when (i) {
                             0 -> ChartsSampleColors.colorBtcGreen
 
-                            1 -> ChartsSampleColors.colorBtcOrange
+                            1 -> ChartsSampleColors.colorOrange
 
                             else -> Color.Transparent
                         },

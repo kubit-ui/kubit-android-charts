@@ -6,7 +6,6 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -24,6 +23,7 @@ import com.kubit.charts.components.axis.model.DecorativeWidthPosition
 import com.kubit.charts.components.axis.model.ShadeRegion
 import com.kubit.charts.components.axis.rememberHorizontalAxisDataState
 import com.kubit.charts.components.axis.rememberVerticalAxisDataState
+import com.kubit.charts.samples.components.utils.ChartsSampleColors
 
 @Preview(
     showBackground = true,
@@ -33,7 +33,7 @@ import com.kubit.charts.components.axis.rememberVerticalAxisDataState
 @Composable
 fun HorizontalAxisPreviewBottom() {
     HorizontalAxisChart(
-        data = sampleHorizontalAxisDark,
+        data = sampleHorizontalAxis,
         labelHeight = 50.dp,
         padding = AxisPadding(
             start = 10.dp,
@@ -51,7 +51,7 @@ fun HorizontalAxisPreviewBottom() {
 @Composable
 fun HorizontalAxisPreviewTop() {
     HorizontalAxisChart(
-        data = sampleHorizontalAxisDark,
+        data = sampleHorizontalAxis,
         type = HorizontalAxisType.Top,
         labelHeight = 50.dp,
         padding = AxisPadding(
@@ -160,7 +160,7 @@ fun HorizontalAxisPreviewTopRotatedLongLabels() {
 @Composable
 fun VerticalAxisPreviewStart() {
     VerticalAxisChart(
-        data = sampleVerticalAxisDark,
+        data = sampleVerticalAxis,
         labelWidth = 50.dp,
         padding = AxisPadding(
             end = 10.dp,
@@ -178,7 +178,7 @@ fun VerticalAxisPreviewStart() {
 @Composable
 fun VerticalAxisPreviewEnd() {
     VerticalAxisChart(
-        data = sampleVerticalAxisDark,
+        data = sampleVerticalAxis,
         type = VerticalAxisType.End,
         labelWidth = 50.dp,
         padding = AxisPadding(
@@ -285,7 +285,7 @@ fun MultipleAxisRotatedPreview() {
 fun MultipleAxisPreviewQ1() {
     Box {
         VerticalAxisChart(
-            data = sampleVerticalAxisDark,
+            data = sampleVerticalAxis,
             labelWidth = 50.dp,
             padding = AxisPadding(
                 end = 10.dp,
@@ -296,7 +296,7 @@ fun MultipleAxisPreviewQ1() {
             decorativeHeightPosition = DecorativeHeightPosition.Top
         )
         HorizontalAxisChart(
-            data = sampleHorizontalAxisDark,
+            data = sampleHorizontalAxis,
             type = HorizontalAxisType.Bottom,
             labelHeight = 50.dp,
             padding = AxisPadding(
@@ -386,7 +386,7 @@ fun MultipleAxisPreviewQ1NoLabels() {
 fun MultipleAxisPreviewQ2() {
     Box {
         VerticalAxisChart(
-            data = sampleVerticalAxisLight,
+            data = sampleVerticalAxis,
             type = VerticalAxisType.End,
             labelWidth = 50.dp,
             padding = AxisPadding(
@@ -398,7 +398,7 @@ fun MultipleAxisPreviewQ2() {
             decorativeHeightPosition = DecorativeHeightPosition.Top
         )
         HorizontalAxisChart(
-            data = sampleHorizontalAxisLight,
+            data = sampleHorizontalAxis,
             type = HorizontalAxisType.Bottom,
             labelHeight = 50.dp,
             padding = AxisPadding(
@@ -421,7 +421,7 @@ fun MultipleAxisPreviewQ2() {
 fun MultipleAxisPreviewQ3() {
     Box {
         VerticalAxisChart(
-            data = sampleVerticalAxisLight,
+            data = sampleVerticalAxis,
             labelWidth = 50.dp,
             padding = AxisPadding(
                 start = 10.dp,
@@ -433,7 +433,7 @@ fun MultipleAxisPreviewQ3() {
             decorativeHeightPosition = DecorativeHeightPosition.Bottom
         )
         HorizontalAxisChart(
-            data = sampleHorizontalAxisLight,
+            data = sampleHorizontalAxis,
             labelHeight = 50.dp,
             padding = AxisPadding(
                 start = 10.dp,
@@ -456,7 +456,7 @@ fun MultipleAxisPreviewQ3() {
 fun MultipleAxisPreviewQ4() {
     Box {
         VerticalAxisChart(
-            data = sampleVerticalAxisDark,
+            data = sampleVerticalAxis,
             labelWidth = 50.dp,
             padding = AxisPadding(
                 end = 10.dp,
@@ -467,7 +467,7 @@ fun MultipleAxisPreviewQ4() {
             decorativeHeightPosition = DecorativeHeightPosition.Bottom
         )
         HorizontalAxisChart(
-            data = sampleHorizontalAxisDark,
+            data = sampleHorizontalAxis,
             labelHeight = 50.dp,
             padding = AxisPadding(
                 start = 10.dp,
@@ -489,8 +489,8 @@ fun MultipleAxisPreviewQ4() {
 @Composable
 fun ComplexAxisPreview() {
     ComplexAxisChartSampleHelper(
-        verticalAxisData = sampleVerticalAxisDark,
-        horizontalAxisData = sampleHorizontalAxisDark,
+        verticalAxisData = sampleVerticalAxis,
+        horizontalAxisData = sampleHorizontalAxis,
         padding = AxisPadding(
             start = 10.dp,
             end = 10.dp,
@@ -498,14 +498,14 @@ fun ComplexAxisPreview() {
             top = 10.dp
         ),
         axisDecorativeSize = 10.dp,
-        verticalStepForHAxisOffset = sampleVerticalAxisLight.axisSteps[2],
-        horizontalStepForVAxisOffset = sampleHorizontalAxisLight.axisSteps[3],
+        verticalStepForHAxisOffset = sampleVerticalAxis.axisSteps[2],
+        horizontalStepForVAxisOffset = sampleHorizontalAxis.axisSteps[3],
         shadeRegion = ShadeRegion(
             fromX = -6f,
             toX = 0f,
             fromY = -4f,
             toY = 0f,
-            color = Color.DarkGray.copy(alpha = 0.5f)
+            color = ChartsSampleColors.darkGray.copy(alpha = 0.5f)
         )
     )
 }
@@ -525,7 +525,7 @@ fun MultipleAxisPreviewWithAxisShade() {
 
         with(LocalDensity.current) {
             val horizontalAxisState = rememberHorizontalAxisDataState(
-                data = sampleHorizontalAxisDark,
+                data = sampleHorizontalAxis,
                 width = width.toFloat(),
                 startPaddingInPx = 50.dp.toPx(),
                 endPaddingInPx = 10.dp.toPx(),
@@ -534,7 +534,7 @@ fun MultipleAxisPreviewWithAxisShade() {
             )
 
             val verticalAxisState = rememberVerticalAxisDataState(
-                data = sampleVerticalAxisDark,
+                data = sampleVerticalAxis,
                 height = height.toFloat(),
                 topPaddingInPx = 10.dp.toPx(),
                 bottomPaddingInPx = 50.dp.toPx(),
@@ -547,7 +547,7 @@ fun MultipleAxisPreviewWithAxisShade() {
                 toX = horizontalAxisState.processedAxisData.toCanvasPosition(0f),
                 fromY = verticalAxisState.processedAxisData.toCanvasPosition(-4f),
                 toY = verticalAxisState.processedAxisData.toCanvasPosition(0f),
-                color = Color.DarkGray.copy(alpha = 0.5f),
+                color = ChartsSampleColors.darkGray.copy(alpha = 0.5f),
             )
 
             HorizontalAxisChart(

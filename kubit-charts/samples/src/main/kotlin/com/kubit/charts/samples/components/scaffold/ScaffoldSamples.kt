@@ -46,12 +46,10 @@ import com.kubit.charts.components.chart.linechart.model.ShadowUnderLine
 import com.kubit.charts.components.chart.linechart.model.lineBuilder
 import com.kubit.charts.components.scaffold.ChartScaffold
 import com.kubit.charts.components.scaffold.ScrollableAccessibilityItem
-import com.kubit.charts.samples.components.axis.sampleHorizontalAxisLight
-import com.kubit.charts.samples.components.axis.sampleHorizontalAxisDark
+import com.kubit.charts.samples.components.axis.sampleHorizontalAxis
 import com.kubit.charts.samples.components.axis.sampleHorizontalBTC
-import com.kubit.charts.samples.components.axis.sampleVerticalAxisLight
+import com.kubit.charts.samples.components.axis.sampleVerticalAxis
 import com.kubit.charts.samples.components.axis.sampleVerticalAxisLong
-import com.kubit.charts.samples.components.axis.sampleVerticalAxisLongDark
 import com.kubit.charts.samples.components.axis.sampleVerticalBTC
 import com.kubit.charts.samples.components.linechart.btcPoints
 import com.kubit.charts.samples.components.linechart.sampleLineChartData1
@@ -60,7 +58,7 @@ import com.kubit.charts.samples.components.utils.getLineChartData
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 
-@Preview(heightDp = 400, widthDp = 600)
+@Preview(heightDp = 400, widthDp = 600, showBackground = true)
 @Suppress("LongMethod", "MagicNumber")
 @Composable
 fun BTCSampleStandard() {
@@ -68,34 +66,31 @@ fun BTCSampleStandard() {
 
     val gradient = Brush.verticalGradient(
         colorStops = arrayOf(
-            0.0f to ChartsSampleColors.colorBtcOrange.copy(alpha = 0.3f),
-            1.0f to ChartsSampleColors.colorBtcOrange.copy(alpha = 0f)
+            0.0f to ChartsSampleColors.colorOrange.copy(alpha = 0.3f),
+            1.0f to ChartsSampleColors.colorOrange.copy(alpha = 0f)
         )
     )
 
     ChartScaffold(
-        modifier = Modifier
-            .background(Color.DarkGray)
+        modifier = Modifier.background(ChartsSampleColors.white)
             .clipToBounds(),
-        horizontalAxis = { horizontalScroll, zoom, padding ->
+        horizontalAxis = { _, zoom, padding ->
             HorizontalAxisChart(
                 data = sampleHorizontalBTC,
                 type = HorizontalAxisType.Bottom,
                 labelHeight = 50.dp,
                 padding = padding,
                 decorativeWidth = 40.dp,
-                labelsBackgroundColor = Color.DarkGray,
                 zoom = zoom
             )
         },
-        verticalAxis = { verticalScroll, zoom, padding ->
+        verticalAxis = { _, zoom, padding ->
             VerticalAxisChart(
                 data = sampleVerticalBTC,
                 labelWidth = 50.dp,
                 padding = padding,
                 decorativeHeight = 40.dp,
                 decorativeHeightPosition = DecorativeHeightPosition.Top,
-                labelsBackgroundColor = Color.DarkGray,
                 zoom = zoom,
             )
         },
@@ -116,14 +111,13 @@ fun BTCSampleStandard() {
     ) { contentData ->
         with(contentData) {
             LineChart(
-                modifier = Modifier
-                    .fillMaxHeight(),
+                modifier = Modifier.fillMaxHeight(),
                 lines = listOf(
                     lineBuilder {
                         addPoints(btcPoints)
                         setLineStyle(
                             LineStyle(
-                                color = ChartsSampleColors.colorBtcOrange,
+                                color = ChartsSampleColors.colorOrange,
                                 width = 6f
                             )
                         )
@@ -134,13 +128,13 @@ fun BTCSampleStandard() {
                         )
                     }
                 ).toImmutableList(),
-                backgroundColor = Color.Transparent,
                 xAxisData = sampleHorizontalBTC,
                 yAxisData = sampleVerticalBTC,
                 onPointSelect = { point, offset ->
                     // Handle point selection
                     Log.d("LineChart", "Point selected: (${point.x},${point.y}) at $offset")
                 },
+                backgroundColor = Color.Transparent
             )
         }
     }
@@ -153,12 +147,11 @@ fun AxisAndLineChartSampleStandard() {
     val fixedUnitSize = 40.dp
 
     ChartScaffold(
-        modifier = Modifier
-            .background(Color.DarkGray)
+        modifier = Modifier.background(ChartsSampleColors.white)
             .clipToBounds(),
         horizontalAxis = { horizontalScroll, zoom, padding ->
             HorizontalAxisChart(
-                data = sampleHorizontalAxisLight,
+                data = sampleHorizontalAxis,
                 type = HorizontalAxisType.Bottom,
                 labelHeight = 50.dp,
                 padding = padding,
@@ -166,7 +159,6 @@ fun AxisAndLineChartSampleStandard() {
                 fixedUnitSize = fixedUnitSize,
                 horizontalScroll = horizontalScroll,
                 zoom = zoom,
-                labelsBackgroundColor = Color.DarkGray
             )
         },
         verticalAxis = { verticalScroll, zoom, padding ->
@@ -178,13 +170,12 @@ fun AxisAndLineChartSampleStandard() {
                 decorativeHeightPosition = DecorativeHeightPosition.Top,
                 fixedUnitSize = fixedUnitSize,
                 verticalScroll = verticalScroll,
-                labelsBackgroundColor = Color.DarkGray,
                 zoom = zoom,
             )
         },
         axisPadding = AxisPadding(start = 50.dp, bottom = 50.dp),
         xUnitSize = fixedUnitSize,
-        xAxisData = sampleHorizontalAxisLight,
+        xAxisData = sampleHorizontalAxis,
         yAxisData = sampleVerticalAxisLong,
         isPinchZoomEnabled = true,
         accessibility = ScrollableAccessibilityItem(
@@ -201,7 +192,7 @@ fun AxisAndLineChartSampleStandard() {
             LineChart(
                 lines = listOf(lineBuilder {
                     addPoints(sampleLineChartData1) {
-                        IntersectionPoint(color = Color.Cyan)
+                        IntersectionPoint()
                     }
                     setSelectionHighlightPoint(
                         SelectionHighlightPoint()
@@ -211,7 +202,7 @@ fun AxisAndLineChartSampleStandard() {
                     )
                     setLineStyle(
                         LineStyle(
-                            color = Color.Cyan,
+                            color = ChartsSampleColors.colorRed50,
                             width = 6f
                         )
                     )
@@ -219,8 +210,8 @@ fun AxisAndLineChartSampleStandard() {
                 ).toImmutableList(),
                 backgroundColor = Color.Transparent,
                 xAxisStepSize = fixedUnitSize,
-                xAxisData = sampleHorizontalAxisLight,
-                yAxisData = sampleVerticalAxisLight,
+                xAxisData = sampleHorizontalAxis,
+                yAxisData = sampleVerticalAxis,
                 horizontalScroll = horizontalScroll,
                 verticalScroll = verticalScroll,
                 zoom = zoom,
@@ -242,19 +233,17 @@ fun AxisAndLineChartSampleVerticalEnd() {
     val fixedUnitSize = 40.dp
 
     ChartScaffold(
-        modifier = Modifier
-            .background(Color.DarkGray)
+        modifier = Modifier.background(ChartsSampleColors.white)
             .clipToBounds(),
         horizontalAxis = { horizontalScroll, zoom, padding ->
             HorizontalAxisChart(
-                data = sampleHorizontalAxisLight,
+                data = sampleHorizontalAxis,
                 type = HorizontalAxisType.Bottom,
                 labelHeight = 50.dp,
                 padding = padding,
                 decorativeWidth = 40.dp,
                 fixedUnitSize = fixedUnitSize,
                 horizontalScroll = horizontalScroll,
-                labelsBackgroundColor = Color.DarkGray,
                 zoom = zoom,
             )
         },
@@ -267,14 +256,13 @@ fun AxisAndLineChartSampleVerticalEnd() {
                 decorativeHeightPosition = DecorativeHeightPosition.Top,
                 fixedUnitSize = fixedUnitSize,
                 verticalScroll = verticalScroll,
-                labelsBackgroundColor = Color.DarkGray,
                 zoom = zoom,
                 type = VerticalAxisType.End
             )
         },
         axisPadding = AxisPadding(end = 50.dp, bottom = 50.dp),
         xUnitSize = fixedUnitSize,
-        xAxisData = sampleHorizontalAxisLight,
+        xAxisData = sampleHorizontalAxis,
         yAxisData = sampleVerticalAxisLong,
         isPinchZoomEnabled = true,
         accessibility = ScrollableAccessibilityItem(
@@ -292,7 +280,7 @@ fun AxisAndLineChartSampleVerticalEnd() {
                     modifier = Modifier.fillMaxHeight(),
                     lines = listOf(
                         lineBuilder {
-                            addPoints(sampleLineChartData1) { IntersectionPoint(color = ChartsSampleColors.colorBtcOrange) }
+                            addPoints(sampleLineChartData1) { IntersectionPoint(color = ChartsSampleColors.black) }
                             setSelectionHighlightPoint(
                                 SelectionHighlightPoint()
                             )
@@ -301,7 +289,7 @@ fun AxisAndLineChartSampleVerticalEnd() {
                             )
                             setLineStyle(
                                 LineStyle(
-                                    color = ChartsSampleColors.colorBtcOrange,
+                                    color = ChartsSampleColors.colorRed50,
                                     width = 6f
                                 )
                             )
@@ -309,8 +297,8 @@ fun AxisAndLineChartSampleVerticalEnd() {
                     ).toImmutableList(),
                     backgroundColor = Color.Transparent,
                     xAxisStepSize = fixedUnitSize,
-                    xAxisData = sampleHorizontalAxisLight,
-                    yAxisData = sampleVerticalAxisLight,
+                    xAxisData = sampleHorizontalAxis,
+                    yAxisData = sampleVerticalAxis,
                     horizontalScroll = horizontalScroll,
                     verticalScroll = verticalScroll,
                     zoom = zoom,
@@ -331,38 +319,35 @@ fun AxisAndLineChartSampleHorizontalTop() {
     val fixedUnitSize = 40.dp
 
     ChartScaffold(
-        modifier = Modifier
-            .background(Color.White)
+        modifier = Modifier.background(ChartsSampleColors.white)
             .clipToBounds(),
         horizontalAxis = { horizontalScroll, zoom, padding ->
             HorizontalAxisChart(
-                data = sampleHorizontalAxisDark,
+                data = sampleHorizontalAxis,
                 type = HorizontalAxisType.Top,
                 labelHeight = 50.dp,
                 padding = padding,
                 decorativeWidth = 40.dp,
                 fixedUnitSize = fixedUnitSize,
                 horizontalScroll = horizontalScroll,
-                labelsBackgroundColor = Color.White,
                 zoom = zoom,
             )
         },
         verticalAxis = { verticalScroll, zoom, padding ->
             VerticalAxisChart(
-                data = sampleVerticalAxisLongDark,
+                data = sampleVerticalAxisLong,
                 labelWidth = 50.dp,
                 padding = padding,
                 decorativeHeight = 40.dp,
                 decorativeHeightPosition = DecorativeHeightPosition.Bottom,
                 fixedUnitSize = fixedUnitSize,
                 verticalScroll = verticalScroll,
-                labelsBackgroundColor = Color.White,
                 zoom = zoom,
             )
         },
         axisPadding = AxisPadding(start = 50.dp, top = 50.dp),
         xUnitSize = fixedUnitSize,
-        xAxisData = sampleHorizontalAxisLight,
+        xAxisData = sampleHorizontalAxis,
         yAxisData = sampleVerticalAxisLong,
         isPinchZoomEnabled = true,
         accessibility = ScrollableAccessibilityItem(
@@ -389,7 +374,7 @@ fun AxisAndLineChartSampleHorizontalTop() {
                             )
                             setLineStyle(
                                 LineStyle(
-                                    color = ChartsSampleColors.colorTurquoise60,
+                                    color = ChartsSampleColors.colorRed50,
                                     width = 6f
                                 )
                             )
@@ -397,8 +382,8 @@ fun AxisAndLineChartSampleHorizontalTop() {
                     ).toImmutableList(),
                     backgroundColor = Color.Transparent,
                     xAxisStepSize = fixedUnitSize,
-                    xAxisData = sampleHorizontalAxisLight,
-                    yAxisData = sampleVerticalAxisLight,
+                    xAxisData = sampleHorizontalAxis,
+                    yAxisData = sampleVerticalAxis,
                     horizontalScroll = horizontalScroll,
                     verticalScroll = verticalScroll,
                     zoom = zoom,
@@ -413,7 +398,7 @@ fun AxisAndLineChartSampleHorizontalTop() {
 }
 
 @Suppress("MagicNumber", "LongMethod")
-@Preview(heightDp = 260)
+@Preview(heightDp = 260, showBackground = true)
 @Composable
 fun LineChartMultiLineMultipleNodesSample() {
     val pointsData = getLineChartData(
@@ -476,14 +461,14 @@ fun LineChartMultiLineMultipleNodesSample() {
                 TextStyle(
                     fontSize = 8.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color.DarkGray.copy(alpha = 0.5f)
+                    color = ChartsSampleColors.darkGray.copy(alpha = 0.5f)
                 )
             },
             stepStyle = { step, value ->
                 if (step % 2 == 0) {
                     AxisStepStyle.solid(
                         strokeWidth = 2.dp,
-                        strokeColor = Color.LightGray.copy(alpha = 0.3f)
+                        strokeColor = ChartsSampleColors.lightGray.copy(alpha = 0.3f)
                     )
                 } else {
                     null
@@ -500,8 +485,7 @@ fun LineChartMultiLineMultipleNodesSample() {
     val textMeasurer = rememberTextMeasurer(cacheSize = 16)
 
     ChartScaffold(
-        modifier = Modifier
-            .background(Color.White)
+        modifier = Modifier.background(ChartsSampleColors.white)
             .padding(horizontal = 20.dp, vertical = 10.dp)
             .clipToBounds(),
         horizontalAxis = { padding ->
@@ -662,7 +646,7 @@ class IntersectionPointWithLabel(
     val radius: Dp = 6.dp,
     val alpha: Float = 1.0f,
     val style: DrawStyle = Fill,
-    color: Color = Color.Black,
+    color: Color = ChartsSampleColors.black,
     colorFilter: ColorFilter? = null,
     blendMode: BlendMode = DrawScope.DefaultBlendMode,
     accessibility: IntersectionNodeAccessibility? = null,
@@ -702,9 +686,9 @@ class IntersectionPointWithLabelCentered(
     val radius: Dp = 6.dp,
     val alpha: Float = 1.0f,
     val style: DrawStyle = Fill,
-    color: Color = Color.Black,
+    color: Color = ChartsSampleColors.black,
     colorFilter: ColorFilter? = null,
-    backgroundColor: Color = Color.White,
+    backgroundColor: Color = ChartsSampleColors.white,
     blendMode: BlendMode = DrawScope.DefaultBlendMode,
     accessibility: IntersectionNodeAccessibility? = null,
     focus: IntersectionNodeFocus = IntersectionNodeFocus(),

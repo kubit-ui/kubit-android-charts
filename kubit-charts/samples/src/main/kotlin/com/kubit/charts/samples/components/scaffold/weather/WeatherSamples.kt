@@ -24,7 +24,6 @@ import com.kubit.charts.components.axis.model.AxisBuilder
 import com.kubit.charts.components.axis.model.AxisPadding
 import com.kubit.charts.components.axis.model.AxisStepStyle
 import com.kubit.charts.components.axis.model.DecorativeHeightPosition
-import com.kubit.charts.components.axis.model.DecorativeWidthPosition.Both
 import com.kubit.charts.components.chart.linechart.LineChart
 import com.kubit.charts.components.chart.linechart.model.IntersectionPainter
 import com.kubit.charts.components.chart.linechart.model.LineStyle
@@ -58,7 +57,7 @@ fun WeatherSample() {
         ChartScaffold(
             modifier = Modifier
                 .padding()
-                .background(Color.White),
+                .background(ChartsSampleColors.white),
             isPinchZoomEnabled = false,
             xAxisData = HorizontalSteps,
             yAxisData = VerticalSteps,
@@ -280,7 +279,7 @@ private fun weatherPoints(
 
 private val VerticalSteps = AxisBuilder()
     .setDefaultStepStyle(null)
-    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = Color.Gray))
+    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = ChartsSampleColors.gray))
     .addNode(16f, "16 º")
     .addNode(18f, "18 º")
     .addNode(20f, "20 º")
@@ -293,11 +292,11 @@ private val VerticalSteps = AxisBuilder()
 private val HorizontalSteps = AxisBuilder()
     .setDefaultStepStyle(
         AxisStepStyle.solid(
-            strokeColor = Color.LightGray.copy(alpha = (0.5f)),
+            strokeColor = ChartsSampleColors.lightGray.copy(alpha = (0.5f)),
             strokeWidth = 0.5.dp,
         )
     )
-    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = Color.Gray))
+    .setDefaultLabelStyle(AxisLabelStyleDefaults.default.copy(color = ChartsSampleColors.gray))
     .addNode(0f, "0 H")
     .addNode(2f)
     .addNode(4f, "4 H")
