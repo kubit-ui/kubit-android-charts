@@ -14,6 +14,12 @@ enum class Sample(
         icon = R.drawable.weather_mix,
         category = SampleCategory.Screen
     ),
+    Health(
+        componentName = "Health Dashboard",
+        description = "A health dashboard displaying fitness and health metrics.",
+        icon = R.drawable.health_metrics,
+        category = SampleCategory.Screen
+    )
 }
 
 enum class SampleCategory(

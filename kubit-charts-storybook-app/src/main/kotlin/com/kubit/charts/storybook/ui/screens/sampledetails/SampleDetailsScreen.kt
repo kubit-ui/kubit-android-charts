@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.kubit.charts.storybook.domain.model.Sample
+import com.kubit.charts.storybook.ui.screens.sampledetails.samplecontent.HealthContent
 import com.kubit.charts.storybook.ui.screens.sampledetails.samplecontent.WeatherContent
 import com.kubit.charts.storybook.ui.storybookcomponents.StorybookScreen
 
@@ -32,8 +33,7 @@ fun SampleDetailsScreen(
 @Composable
 private fun ComponentContent(sample: Sample) {
     when (sample) {
-        Sample.Weather -> {
-            WeatherContent()
-        }
+        Sample.Weather -> WeatherContent()
+        Sample.Health -> HealthContent()
     }
 }
